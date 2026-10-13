@@ -1,0 +1,6 @@
+{
+  "appId": "tj.futureschool.teacher",
+  "appName": "Future School Teacher",
+  "webDir": "www",
+  "server": { "androidScheme": "https" }
+}

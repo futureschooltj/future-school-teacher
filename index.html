@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2B44D6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Future School Teacher</title>
+<script src="bundle.js"></script>
+<style>
+:root{
+  --bg:#F3F4FA;--card:#FFFFFF;--ink:#13152E;--mut:#5C6283;--line:#E2E4F0;
+  --pri:#2B44D6;--pri-ink:#FFFFFF;--pri-soft:#E7EBFF;--acc:#FFB703;--acc-ink:#3A2A00;
+  --ok:#0F8A4B;--ok-soft:#DDF5E7;--warn:#9A5B00;--warn-soft:#FFF0D2;--bad:#C62F2F;--bad-soft:#FDE3E3;
+  --shadow:0 1px 2px rgba(19,21,46,.06),0 4px 14px rgba(19,21,46,.05);
+  --r:16px;--r-s:11px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D0F1E;--card:#171A30;--ink:#ECEEFB;--mut:#9AA1C7;--line:#272B49;
+    --pri:#8197FF;--pri-ink:#0D0F1E;--pri-soft:#222852;--acc:#FFC933;--acc-ink:#2B1F00;
+    --ok:#4ADE97;--ok-soft:#14352A;--warn:#FFC25A;--warn-soft:#3B2D10;--bad:#FF8585;--bad-soft:#41191B;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D0F1E;--card:#171A30;--ink:#ECEEFB;--mut:#9AA1C7;--line:#272B49;
+  --pri:#8197FF;--pri-ink:#0D0F1E;--pri-soft:#222852;--acc:#FFC933;--acc-ink:#2B1F00;
+  --ok:#4ADE97;--ok-soft:#14352A;--warn:#FFC25A;--warn-soft:#3B2D10;--bad:#FF8585;--bad-soft:#41191B;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;line-height:1.2}
+a{color:var(--pri)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--pri);color:var(--pri-ink);display:flex;align-items:center;gap:10px;padding:10px 14px;min-height:58px}
+:root[data-theme="dark"] .top{background:var(--card);color:var(--ink);border-bottom:1px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .top{background:var(--card);color:var(--ink);border-bottom:1px solid var(--line)}}
+.top .logo{width:36px;height:36px;border-radius:10px;background:#fff;display:grid;place-items:center;overflow:hidden;flex:none}
+.top .logo img{width:100%;height:100%;object-fit:contain}
+.top h1{font-size:18px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .sub{display:block;font-size:12px;font-weight:500;opacity:.8}
+.ib{width:44px;height:44px;border:0;background:transparent;color:inherit;border-radius:12px;display:grid;place-items:center;cursor:pointer;position:relative;flex:none}
+.ib:active{background:rgba(127,127,127,.2)}
+.ib svg{width:24px;height:24px}
+.dot{position:absolute;top:5px;right:4px;min-width:18px;height:18px;border-radius:9px;background:var(--acc);color:var(--acc-ink);font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+
+main{padding:14px 14px 96px;max-width:760px;margin:0 auto}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);display:flex;padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px))}
+.nav button{flex:1;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:11.5px;color:var(--mut);cursor:pointer;border-radius:12px;position:relative;min-height:52px}
+.nav button svg{width:24px;height:24px}
+.nav button.on{color:var(--pri);font-weight:700}
+.nav button.on::before{content:"";position:absolute;top:0;width:28px;height:3px;border-radius:2px;background:var(--pri)}
+.nav .dot{top:2px;right:calc(50% - 20px)}
+
+/* generic */
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:14px;margin-bottom:12px;border:1px solid var(--line)}
+.card.tap{cursor:pointer}
+.card.tap:active{background:var(--pri-soft)}
+.row{display:flex;align-items:center;gap:10px}
+.row.sp{justify-content:space-between}
+.wrap{flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.mut{color:var(--mut)}
+.sm{font-size:13.5px}
+.xs{font-size:12px}
+.b{font-weight:700}
+.h2{font-size:20px;font-weight:700;margin:4px 0 10px}
+.h3{font-size:16px;font-weight:700;margin:14px 0 8px}
+.gap{height:10px}
+.tc{text-align:center}
+.empty{padding:26px 10px;text-align:center;color:var(--mut)}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:12.5px;font-weight:600;background:var(--pri-soft);color:var(--pri);white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.wht{background:var(--card);color:var(--ink);border:1.5px solid var(--mut)}
+.chip.gray{background:var(--line);color:var(--mut)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:13px;border:0;background:var(--pri);color:var(--pri-ink);font-weight:700;cursor:pointer;font-size:16px}
+.btn:active{filter:brightness(.9)}
+.btn.sec{background:var(--pri-soft);color:var(--pri)}
+.btn.ghost{background:transparent;color:var(--pri);border:1.5px solid var(--line)}
+.btn.bad{background:var(--bad);color:#fff}
+.btn.acc{background:var(--acc);color:var(--acc-ink)}
+.btn.sm2{min-height:38px;padding:0 12px;font-size:14px;border-radius:10px}
+.btn.full{width:100%}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.btn svg{width:20px;height:20px}
+.fab{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:15;width:56px;height:56px;border-radius:18px;background:var(--acc);color:var(--acc-ink);border:0;box-shadow:0 6px 18px rgba(0,0,0,.25);display:grid;place-items:center;cursor:pointer}
+.fab svg{width:28px;height:28px}
+
+/* form */
+label.f{display:block;margin:0 0 12px;font-size:13.5px;font-weight:600;color:var(--mut)}
+label.f>span{display:block;margin-bottom:5px}
+input[type=text],input[type=password],input[type=date],input[type=month],input[type=time],input[type=number],input[type=tel],input[type=url],input[type=search],select,textarea{width:100%;min-height:48px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--pri);outline:none}
+.seg{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:99px;font-weight:600;font-size:14px;cursor:pointer;min-height:40px}
+.seg button.on{background:var(--pri);border-color:var(--pri);color:var(--pri-ink)}
+.search{position:relative;margin-bottom:10px}
+.search svg{position:absolute;left:12px;top:12px;width:24px;height:24px;color:var(--mut)}
+.search input{padding-left:44px}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 12px;display:flex;flex-direction:column;gap:10px;text-align:left;cursor:pointer;min-height:96px;box-shadow:var(--shadow);position:relative}
+.tile:active{background:var(--pri-soft)}
+.tile .ti{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--pri-soft);color:var(--pri)}
+.tile .ti svg{width:24px;height:24px}
+.tile b{font-size:15.5px}
+.tile .dot{top:10px;right:10px}
+.hero{background:var(--pri);color:var(--pri-ink);border-radius:20px;padding:18px;margin-bottom:12px}
+:root[data-theme="dark"] .hero{background:var(--pri-soft);color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{background:var(--pri-soft);color:var(--ink)}}
+.hero .big{font-size:22px;font-weight:800;margin:2px 0 4px}
+.hero .btn{margin-top:12px}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.stat b{display:block;font-size:22px}
+.stat span{font-size:12px;color:var(--mut)}
+.bar{height:8px;border-radius:5px;background:var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--pri);border-radius:5px}
+.bar.ok>i{background:var(--ok)}.bar.warn>i{background:var(--acc)}.bar.bad>i{background:var(--bad)}
+
+/* list items */
+.li{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.li:last-child{border-bottom:0}
+.av{width:40px;height:40px;border-radius:50%;background:var(--pri-soft);color:var(--pri);display:grid;place-items:center;font-weight:800;flex:none}
+.time{min-width:62px;font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.lesson{border-left:5px solid var(--pri)}
+.lesson.conf{border-left-color:var(--bad)}
+.lesson.done{border-left-color:var(--ok)}
+.unread{border-left:5px solid var(--acc)}
+.high{border-left:5px solid var(--bad)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:0 -14px 12px;padding:0 10px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;border:0;background:transparent;padding:12px 12px;font-weight:600;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent;font-size:15px}
+.tabs button.on{color:var(--pri);border-bottom-color:var(--pri)}
+.att3{display:flex;gap:6px}
+.att3 button{flex:1;min-height:44px;border-radius:11px;border:1.5px solid var(--line);background:var(--card);font-weight:700;cursor:pointer;font-size:14px}
+.att3 button.p.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.att3 button.a.on{background:var(--bad);border-color:var(--bad);color:#fff}
+.att3 button.l.on{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.opt{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:6px;cursor:pointer}
+.opt input{width:20px;height:20px;flex:none}
+.opt.on{border-color:var(--pri);background:var(--pri-soft)}
+.banner{border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:14px;font-weight:600}
+.banner.warn{background:var(--warn-soft);color:var(--warn)}
+.banner.bad{background:var(--bad-soft);color:var(--bad)}
+.banner.ok{background:var(--ok-soft);color:var(--ok)}
+.tblw{overflow-x:auto;max-width:100%;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--pri-soft);color:var(--pri);font-weight:700;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+
+/* modal */
+#modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(10,12,30,.55);align-items:flex-end;justify-content:center}
+#modal.open{display:flex}
+.sheet{background:var(--card);width:100%;max-width:640px;max-height:94%;border-radius:22px 22px 0 0;display:flex;flex-direction:column;box-shadow:0 -8px 30px rgba(0,0,0,.3)}
+.sheet .sh{display:flex;align-items:center;gap:8px;padding:12px 8px 8px 18px;border-bottom:1px solid var(--line)}
+.sheet .sh h2{flex:1;font-size:18px}
+.sheet .sb{padding:16px 18px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sheet .sf{padding:10px 18px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);display:flex;gap:10px}
+.sheet .sf .btn{flex:1}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:11px 16px;border-radius:12px;z-index:70;font-weight:600;font-size:14.5px;max-width:90%;display:none;text-align:center}
+#toast.on{display:block}
+
+/* login */
+.login{min-height:100vh;display:flex;flex-direction:column;justify-content:center;max-width:420px;margin:0 auto;padding:24px 20px}
+.login .lg{width:84px;height:84px;border-radius:24px;background:#fff;margin:0 auto 14px;display:grid;place-items:center;box-shadow:var(--shadow);overflow:hidden}
+.login .lg img{width:100%;height:100%;object-fit:contain}
+.login h1{text-align:center;font-size:26px;margin-bottom:4px}
+.login p{text-align:center;margin:0 0 22px;color:var(--mut)}
+
+@media print{
+  body *{visibility:hidden}
+  #printarea,#printarea *{visibility:visible}
+  #printarea{position:absolute;left:0;top:0;width:100%}
+  .top,.nav,.fab,#toast{display:none!important}
+  th{background:#eee!important;color:#000!important}
+  td,th{white-space:normal}
+}
+@media (prefers-reduced-motion:no-preference){
+  .sheet{animation:up .22s ease-out}
+  @keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal" role="dialog" aria-modal="true"></div>
+<div id="toast" role="status"></div>
+<script>
+'use strict';
+/* ================= i18n ================= */
+const DICT = {
+// key: [tg, ru, en]
+app:['Future School Teacher','Future School Teacher','Future School Teacher'],
+login:['Воридшавӣ','Вход','Sign in'],
+loginId:['ID-и омӯзгор','ID преподавателя','Teacher ID'],
+password:['Парол','Пароль','Password'],
+signin:['Ворид шудан','Войти','Sign in'],
+forgot:['Паролро фаромӯш кардам','Забыли пароль','Forgot password'],
+forgotSent:['Дархост ба маъмурият фиристода шуд. Маъмурият бо шумо тамос мегирад.','Запрос отправлен администратору. Он свяжется с вами.','Request sent to the administrator. They will contact you.'],
+badLogin:['ID ё парол нодуруст аст','Неверный ID или пароль','Wrong ID or password'],
+locked:['Бисёр кӯшиш шуд. Каме интизор шавед.','Слишком много попыток. Подождите.','Too many attempts. Please wait.'],
+loading:['Бор мешавад…','Загрузка…','Loading…'],
+noDb:['Пойгоҳи додаҳо дастнорас аст. Ба ҳисоби худ ворид шавед ва саҳифаро аз нав кушоед.','База данных недоступна. Войдите в аккаунт и откройте страницу заново.','The database is unavailable. Sign in to your account and reopen the page.'],
+readOnly:['Шумо танҳо хондан метавонед. Барои сабт ҳуқуқи «Муҳаррир» лозим аст.','Только чтение. Для записи нужны права «Редактор».','Read-only. You need Editor rights to save.'],
+firstRun:['Пойгоҳи додаҳо холӣ аст. Ҳисоби аввалини маъмурро созед.','База пуста. Создайте первого администратора.','The database is empty. Create the first administrator.'],
+create:['Сохтан','Создать','Create'],
+hello:['Салом','Здравствуйте','Hello'],
+role_admin:['Маъмур','Администратор','Administrator'],
+role_teacher:['Омӯзгор','Преподаватель','Teacher'],
+role_head:['Роҳбар','Руководитель','Director'],
+home:['Асосӣ','Главная','Home'],
+groups:['Гурӯҳҳо','Группы','Groups'],
+myGroups:['Гурӯҳҳои ман','Мои группы','My groups'],
+schedule:['Ҷадвали дарсҳо','Расписание','Schedule'],
+students:['Рӯйхати хонандагон','Ученики','Students'],
+exams:['Имтиҳонҳои рӯзона','Дневные экзамены','Daily exams'],
+announcements:['Эълонҳо','Объявления','Announcements'],
+alerts:['Огоҳиҳо','Уведомления','Alerts'],
+tAtt:['Ҳозиршавии омӯзгорон','Посещаемость учителей','Teacher attendance'],
+reports:['Ҳисоботҳо','Отчёты','Reports'],
+tasks:['Вазифаҳо','Задачи','Tasks'],
+materials:['Маводи таълимӣ','Материалы','Materials'],
+messages:['Алоқа бо роҳбарият','Связь с руководством','Contact management'],
+admin:['Панели маъмурият','Панель администратора','Admin panel'],
+settings:['Танзимот','Настройки','Settings'],
+search:['Ҷустуҷӯ','Поиск','Search'],
+searchPh:['Ном, ID ё гурӯҳ…','Имя, ID или группа…','Name, ID or group…'],
+teachers:['Омӯзгорон','Преподаватели','Teachers'],
+back:['Бозгашт','Назад','Back'],
+save:['Сабт кардан','Сохранить','Save'],
+cancel:['Бекор кардан','Отмена','Cancel'],
+del:['Нест кардан','Удалить','Delete'],
+edit:['Таҳрир','Изменить','Edit'],
+add:['Илова кардан','Добавить','Add'],
+close:['Пӯшидан','Закрыть','Close'],
+yes:['Бале','Да','Yes'],
+no:['Не','Нет','No'],
+ok:['Хуб','ОК','OK'],
+confirmDel:['Ин амалро баргардондан мумкин нест. Давом медиҳед?','Это действие нельзя отменить. Продолжить?','This cannot be undone. Continue?'],
+saved:['Сабт шуд','Сохранено','Saved'],
+deleted:['Нест шуд','Удалено','Deleted'],
+savedOffline:['Бе интернет дар телефон нигоҳ дошта шуд. Ҳангоми пайвастшавӣ мефиристад.','Нет сети: сохранено на телефоне, отправится при подключении.','Offline: saved on the phone, will sync when online.'],
+noPerm:['Иҷозат нест','Нет прав','Not allowed'],
+synced:['Ҳамоҳанг шуд','Синхронизировано','Synced'],
+pending:['Дар навбати фиристодан','В очереди на отправку','Waiting to sync'],
+offline:['Бе интернет','Нет сети','Offline'],
+empty:['Ҳоло чизе нест','Пока пусто','Nothing here yet'],
+name:['Ному насаб','Имя и фамилия','Full name'],
+phone:['Телефон','Телефон','Phone'],
+today:['Имрӯз','Сегодня','Today'],
+yesterday:['Дирӯз','Вчера','Yesterday'],
+earlier:['Пештар','Раньше','Earlier'],
+all:['Ҳама','Все','All'],
+mine:['Аз они ман','Мои','Mine'],
+date:['Сана','Дата','Date'],
+from:['Аз','С','From'],
+to:['То','По','To'],
+subject:['Фан','Предмет','Subject'],
+group:['Гурӯҳ','Группа','Group'],
+teacher:['Омӯзгор','Преподаватель','Teacher'],
+student:['Хонанда','Ученик','Student'],
+title:['Сарлавҳа','Заголовок','Title'],
+text:['Матн','Текст','Text'],
+desc:['Тавсиф','Описание','Description'],
+notes:['Эзоҳҳо','Заметки','Notes'],
+note:['Эзоҳ','Заметка','Note'],
+addNote:['Эзоҳи нав','Новая заметка','New note'],
+by:['Муаллиф','Автор','By'],
+status:['Ҳолат','Статус','Status'],
+// days
+d1:['Душанбе','Понедельник','Monday'],d2:['Сешанбе','Вторник','Tuesday'],d3:['Чоршанбе','Среда','Wednesday'],
+d4:['Панҷшанбе','Четверг','Thursday'],d5:['Ҷумъа','Пятница','Friday'],d6:['Шанбе','Суббота','Saturday'],d7:['Якшанбе','Воскресенье','Sunday'],
+s1:['Дш','Пн','Mo'],s2:['Сш','Вт','Tu'],s3:['Чш','Ср','We'],s4:['Пш','Чт','Th'],s5:['Ҷм','Пт','Fr'],s6:['Шб','Сб','Sa'],s7:['Яш','Вс','Su'],
+// groups
+group1:['Гурӯҳи 1','Группа 1','Group 1'],
+groupName:['Номи гурӯҳ','Название группы','Group name'],
+newGroup:['Гурӯҳи нав','Новая группа','New group'],
+editGroup:['Таҳрири гурӯҳ','Изменить группу','Edit group'],
+total:['Шумораи умумӣ','Всего','Total'],
+studentsN:['хонанда','учеников','students'],
+tabStudents:['Хонандагон','Ученики','Students'],
+tabSchedule:['Ҷадвал','Расписание','Schedule'],
+tabAtt:['Ҳозиршавӣ','Посещаемость','Attendance'],
+tabExams:['Имтиҳонҳо','Экзамены','Exams'],
+tabProgress:['Пешрафт','Прогресс','Progress'],
+noTeacher:['Омӯзгор таъин нашудааст','Преподаватель не назначен','No teacher assigned'],
+// schedule
+lessons:['Дарсҳо','Уроки','Lessons'],
+newLesson:['Дарси нав','Новый урок','New lesson'],
+editLesson:['Таҳрири дарс','Изменить урок','Edit lesson'],
+dayOfWeek:['Рӯзи ҳафта','День недели','Day of week'],
+start:['Оғоз','Начало','Start'],
+end:['Анҷом','Конец','End'],
+conflict:['Дарсҳо ба ҳам мерасанд!','Уроки пересекаются!','Lessons overlap!'],
+conflictWarn:['Диққат: ин дарс бо дарси дигар дар як вақт аст. Ба ҳар ҳол сабт мешавад.','Внимание: урок пересекается с другим. Всё равно сохранено.','Warning: this lesson overlaps another. Saved anyway.'],
+badTime:['Вақти анҷом бояд баъд аз оғоз бошад','Конец должен быть позже начала','End must be after start'],
+noLessons:['Дар ин рӯз дарс нест','В этот день уроков нет','No lessons this day'],
+markAtt:['Ҳозиршавиро қайд кардан','Отметить посещаемость','Mark attendance'],
+lessonChanged:['Ҷадвали дарси шумо тағйир ёфт','Расписание вашего урока изменилось','Your lesson schedule changed'],
+nextLesson:['Дарси навбатӣ','Следующий урок','Next lesson'],
+noNextLesson:['Имрӯз дарси дигар нест','Сегодня больше нет уроков','No more lessons today'],
+todayLessons:['Дарсҳои имрӯза','Уроки сегодня','Today\'s lessons'],
+inMin:['баъди {n} дақиқа','через {n} мин','in {n} min'],
+nowLesson:['Ҳозир идома дорад','Идёт сейчас','In progress'],
+// attendance of students
+present:['Ҳозир','Присутствует','Present'],
+absent:['Ғоиб','Отсутствует','Absent'],
+late:['Дер омад','Опоздал','Late'],
+pShort:['Ҳозир','Был','Here'],
+aShort:['Ғоиб','Не был','Absent'],
+lShort:['Дер','Опоздал','Late'],
+lessonHeld:['Дарс гузаронида шуд','Урок проведён','Lesson held'],
+lessonNotHeld:['Дарс нагузашт','Урок не проведён','Lesson not held'],
+reason:['Сабаб','Причина','Reason'],
+markAll:['Ҳама ҳозир','Все присутствуют','All present'],
+attSaved:['Ҳозиршавӣ сабт шуд','Посещаемость сохранена','Attendance saved'],
+chooseLesson:['Дарсро интихоб кунед','Выберите урок','Choose a lesson'],
+noLessonToday:['Имрӯз барои ин гурӯҳ дарс нест. Ҷадвалро санҷед.','Сегодня нет уроков. Проверьте расписание.','No lesson today. Check the schedule.'],
+attPct:['Ҳозиршавӣ','Посещаемость','Attendance'],
+week:['Ҳафта','Неделя','Week'],
+month:['Моҳ','Месяц','Month'],
+// students
+newStudent:['Хонандаи нав','Новый ученик','New student'],
+editStudent:['Таҳрири хонанда','Изменить ученика','Edit student'],
+code:['Рақами ID','Номер ID','ID number'],
+parentPhone:['Телефони волидайн','Телефон родителей','Parent phone'],
+grade:['Баҳо','Оценка','Grade'],
+progress:['Пешрафти таълимӣ','Успеваемость','Progress'],
+examResults:['Натиҷаи имтиҳонҳо','Результаты экзаменов','Exam results'],
+avgExam:['Миёнаи имтиҳон','Средний балл','Exam avg.'],
+// exams
+newExam:['Имтиҳони нав','Новый экзамен','New exam'],
+editExam:['Таҳрири имтиҳон','Изменить экзамен','Edit exam'],
+examTitle:['Номи имтиҳон','Название экзамена','Exam title'],
+examType:['Навъи имтиҳон','Тип экзамена','Exam type'],
+typeTest:['Тестӣ','Тестовый','Test'],
+typeWritten:['Хаттӣ','Письменный','Written'],
+questions:['Саволҳо','Вопросы','Questions'],
+question:['Савол','Вопрос','Question'],
+addQuestion:['Саволи нав','Добавить вопрос','Add question'],
+option:['Ҷавоби','Вариант','Option'],
+correct:['Ҷавоби дуруст','Правильный ответ','Correct answer'],
+points:['Хол','Баллы','Points'],
+maxPoints:['Холи максималӣ','Макс. баллов','Max points'],
+runExam:['Гузаронидан ва сабти натиҷа','Провести и внести результаты','Run & record results'],
+enterResult:['Натиҷа','Результат','Result'],
+score:['Хол','Балл','Score'],
+percent:['Фоиз','Процент','Percent'],
+results:['Натиҷаҳо','Результаты','Results'],
+notTaken:['Нагузашт','Не сдавал','Not taken'],
+examHistory:['Таърихи имтиҳонҳо','История экзаменов','Exam history'],
+upcoming:['Оянда','Предстоящие','Upcoming'],
+history:['Таърих','История','History'],
+needQuestions:['Ақалан як савол илова кунед','Добавьте хотя бы один вопрос','Add at least one question'],
+needCorrect:['Барои ҳар савол ҷавоби дурустро интихоб кунед','Выберите правильный ответ для каждого вопроса','Choose the correct answer for every question'],
+participants:['Иштирокчиён','Участники','Participants'],
+avg:['Миёна','Среднее','Average'],
+// announcements
+newAnn:['Эълони нав','Новое объявление','New announcement'],
+target:['Барои кӣ','Кому','Audience'],
+allTeachers:['Ҳамаи омӯзгорон','Всем преподавателям','All teachers'],
+importance:['Аҳамият','Важность','Importance'],
+normal:['Оддӣ','Обычное','Normal'],
+important:['Муҳим','Важное','Important'],
+published:['Нашр шуд','Опубликовано','Published'],
+publisher:['Нашркунанда','Автор','Publisher'],
+// alerts
+unread:['Нахондашуда','Непрочитанные','Unread'],
+markRead:['Хондашуда','Прочитано','Mark read'],
+markAllRead:['Ҳамаро хондашуда қайд кардан','Отметить всё прочитанным','Mark all read'],
+al_lesson:['Шумо баъди {n} дақиқа дарс доред: {g}','У вас урок через {n} мин: {g}','Lesson in {n} min: {g}'],
+al_lessonNow:['Дарси {g} ҳозир шуруъ шуд','Урок {g} уже начался','Lesson {g} has started'],
+al_unmarked:['Дар бораи дарси гузарониданашуда ё қайдношуда маълумот диҳед: {g}','Сообщите о непроведённом/неотмеченном уроке: {g}','Report the unmarked/missed lesson: {g}'],
+al_exam:['Шумо бояд имтиҳони рӯзонаро гузаронед: {g}','Нужно провести дневной экзамен: {g}','You must run today\'s exam: {g}'],
+al_task:['Вазифа: {g}','Задача: {g}','Task: {g}'],
+al_taskLate:['Муҳлати вазифа гузашт: {g}','Срок задачи истёк: {g}','Task overdue: {g}'],
+al_report:['Ҳисоботи имрӯзаи худро пур кунед','Заполните отчёт за сегодня','Fill in today\'s report'],
+al_checkin:['Омадани худро қайд кунед («Ба кор омадам»)','Отметьте приход («Я на работе»)','Check in ("I\'m at work")'],
+al_ann:['Роҳбарият эълони нав нашр кард: {g}','Новое объявление: {g}','New announcement: {g}'],
+al_msg:['Паёми нав аз {g}','Новое сообщение от {g}','New message from {g}'],
+al_reply:['Ба паёми шумо ҷавоб омад','Ответ на ваше сообщение','Reply to your message'],
+al_reset:['Дархости барқарорсозии парол: {g}','Запрос сброса пароля: {g}','Password reset request: {g}'],
+enableNotif:['Огоҳиҳои браузерро фаъол кардан','Включить уведомления браузера','Enable browser notifications'],
+notifNote:['Огоҳиҳо танҳо ҳангоми кушода будани барнома мерасанд.','Уведомления приходят, пока приложение открыто.','Alerts arrive only while the app is open.'],
+// teacher attendance
+checkIn:['Ба кор омадам','Я пришёл на работу','I arrived'],
+checkOut:['Аз кор баромадам','Я ушёл с работы','I left'],
+arrived:['Омадан','Приход','Arrival'],
+left:['Баромадан','Уход','Departure'],
+workedH:['Вақти кор','Время работы','Hours worked'],
+lateMin:['Дер омад: {n} дақ.','Опоздание: {n} мин','Late: {n} min'],
+onTime:['Сари вақт','Вовремя','On time'],
+dayDone:['Рӯзи кории имрӯз анҷом ёфт','Рабочий день завершён','Workday finished'],
+inAt:['Омадед дар {t}','Приход в {t}','Arrived at {t}'],
+alreadyIn:['Омадан аллакай қайд шудааст','Приход уже отмечен','Already checked in'],
+noCheckIn:['Аввал «Ба кор омадам»-ро пахш кунед','Сначала нажмите «Я пришёл»','Check in first'],
+totalHours:['Соати умумӣ','Всего часов','Total hours'],
+daysPresent:['Рӯзҳои кор','Рабочих дней','Days worked'],
+lateCount:['Дер омадан','Опозданий','Late arrivals'],
+monthHist:['Таърихи моҳ','История за месяц','Month history'],
+editTime:['Таҳрири вақт (танҳо маъмур)','Изменить время (админ)','Edit time (admin only)'],
+adminEditOnly:['Вақти сабтшударо танҳо маъмурият тағйир медиҳад','Записанное время меняет только администратор','Only the administrator can change recorded times'],
+notCame:['Наомадааст','Не пришёл','Not in'],
+// reports
+reportType:['Навъи ҳисобот','Тип отчёта','Report type'],
+rp_teacherDaily:['Ҳисоботи ҳаррӯзаи омӯзгор','Ежедневный отчёт учителя','Teacher daily report'],
+rp_teacherAtt:['Ҳисоботи ҳозиршавии омӯзгорон','Посещаемость учителей','Teacher attendance report'],
+rp_groups:['Ҳисоботи гурӯҳҳо','Отчёт по группам','Groups report'],
+rp_studentAtt:['Ҳисоботи ҳозиршавии хонандагон','Посещаемость учеников','Student attendance report'],
+rp_exams:['Ҳисоботи имтиҳонҳои рӯзона','Отчёт по экзаменам','Exams report'],
+rp_progress:['Ҳисоботи пешрафти хонандагон','Успеваемость учеников','Student progress report'],
+rp_lessons:['Дарсҳои гузаронидашуда ва нагузаронидашуда','Проведённые и пропущенные уроки','Held and missed lessons'],
+build:['Намоиш додан','Показать','Show'],
+exportExcel:['Excel','Excel','Excel'],
+exportPdf:['PDF','PDF','PDF'],
+pdfHint:['Дар равзанаи чоп «Захира ҳамчун PDF»-ро интихоб кунед.','В окне печати выберите «Сохранить как PDF».','In the print dialog choose "Save as PDF".'],
+myDailyReport:['Ҳисоботи имрӯзаи ман','Мой отчёт за сегодня','My report for today'],
+reportText:['Чӣ гузаронида шуд, мушкилот, эзоҳ','Что проведено, проблемы, заметки','What was taught, issues, notes'],
+reportSaved:['Ҳисобот сабт шуд','Отчёт сохранён','Report saved'],
+heldN:['Гузашт','Проведено','Held'],
+missedN:['Нагузашт','Пропущено','Missed'],
+planned:['Ба нақша','По плану','Planned'],
+notMarked:['Қайд нашуд','Не отмечено','Not marked'],
+present2:['Ҳозир','Был','Present'],
+absent2:['Ғоиб','Не был','Absent'],
+late2:['Дер','Опоздал','Late'],
+sessions:['Дарсҳо','Занятий','Sessions'],
+lessonsWeek:['Дарс дар ҳафта','Уроков в неделю','Lessons/week'],
+min:['Мин.','Мин.','Min'],
+max:['Макс.','Макс.','Max'],
+hasReport:['Ҳисобот','Отчёт','Report'],
+// tasks
+newTask:['Вазифаи нав','Новая задача','New task'],
+due:['Муҳлат','Срок','Due'],
+assignee:['Иҷрокунанда','Исполнитель','Assignee'],
+st_todo:['Иҷро нашудааст','Не выполнено','Not done'],
+st_doing:['Дар ҳоли иҷро','В процессе','In progress'],
+st_done:['Иҷро шудааст','Выполнено','Done'],
+overdue:['Муҳлат гузашт','Просрочено','Overdue'],
+assignedBy:['Гузоштааст','Поставил','Assigned by'],
+// materials
+newMaterial:['Маводи нав','Новый материал','New material'],
+matType:['Навъ','Тип','Type'],
+mt_pdf:['PDF','PDF','PDF'],
+mt_word:['Ҳуҷҷати Word','Документ Word','Word document'],
+mt_test:['Тест','Тест','Test'],
+mt_q:['Саволҳои имтиҳонӣ','Экзаменационные вопросы','Exam questions'],
+mt_plan:['Нақшаи дарс','План урока','Lesson plan'],
+mt_extra:['Маводи иловагӣ','Доп. материалы','Extra material'],
+link:['Пайванд (Google Drive ва ғ.)','Ссылка (Google Drive и др.)','Link (Google Drive etc.)'],
+open:['Кушодан','Открыть','Open'],
+matHint:['Файлро ба Google Drive ё дигар хидмат бор кунед ва пайвандро инҷо гузоред. Матни кӯтоҳро дар майдони «Матн» навиштан мумкин аст.','Загрузите файл в Google Drive или другой сервис и вставьте ссылку. Короткий текст можно написать в поле «Текст».','Upload the file to Google Drive or similar and paste the link. Short text can go in the Text field.'],
+allSubjects:['Ҳама фанҳо','Все предметы','All subjects'],
+// messages
+newMsg:['Паёми нав','Новое сообщение','New message'],
+msgType:['Навъи паём','Тип сообщения','Message type'],
+mg_question:['Савол','Вопрос','Question'],
+mg_problem:['Хабар дар бораи мушкилот','Сообщить о проблеме','Report a problem'],
+mg_suggest:['Пешниҳод','Предложение','Suggestion'],
+mg_lesson:['Ҳисобот дар бораи дарс','Отчёт об уроке','Lesson report'],
+send:['Фиристодан','Отправить','Send'],
+sent:['Фиристода шуд','Отправлено','Sent'],
+reply:['Ҷавоб','Ответ','Reply'],
+replied:['Ҷавоб дода шуд','Отвечено','Replied'],
+newS:['Нав','Новое','New'],
+closeMsg:['Пӯшидани мавзӯъ','Закрыть тему','Close thread'],
+from2:['Аз','От','From'],
+// admin
+staff:['Кормандон ва ҳисобҳо','Сотрудники и аккаунты','Staff & accounts'],
+newStaff:['Ҳисоби нав','Новый аккаунт','New account'],
+editStaff:['Таҳрири ҳисоб','Изменить аккаунт','Edit account'],
+login2:['ID (воридшавӣ)','ID (логин)','ID (login)'],
+role:['Нақш','Роль','Role'],
+active:['Фаъол','Активен','Active'],
+inactive:['Ғайрифаъол','Отключён','Disabled'],
+setPassword:['Пароли нав','Новый пароль','New password'],
+genPass:['Сохтани пароли тасодуфӣ','Сгенерировать пароль','Generate password'],
+tempPass:['Пароли муваққатӣ','Временный пароль','Temporary password'],
+mustChange:['Корбар бояд паролро ҳангоми воридшавии аввал иваз кунад','Пользователь сменит пароль при первом входе','User must change the password at first sign-in'],
+passNote:['Паролро ҳоло нависед ё нусха гиред: баъд дида намешавад.','Запишите пароль сейчас: потом он не будет виден.','Note the password now: it will not be shown again.'],
+loginTaken:['Ин ID банд аст','Этот ID занят','This ID is taken'],
+lastAdmin:['Охирин маъмурро нест кардан мумкин нест','Нельзя удалить последнего администратора','Cannot remove the last administrator'],
+resetReq:['Дархостҳои барқарорсозии парол','Запросы сброса пароля','Password reset requests'],
+handled:['Иҷро шуд','Выполнено','Handled'],
+rights:['Ҳуқуқи дастрасӣ','Права доступа','Access rights'],
+rightsInfo:['Маъмур: ҳама чиз. Роҳбар: дидани ҳама, эълон, вазифа, ҷавоб ба паём. Омӯзгор: танҳо гурӯҳҳои худ.','Админ: всё. Руководитель: просмотр всего, объявления, задачи, ответы. Преподаватель: только свои группы.','Admin: everything. Director: view all, announcements, tasks, replies. Teacher: own groups only.'],
+backup:['Нусхаи эҳтиётӣ','Резервная копия','Backup'],
+backupMake:['Нусхаи эҳтиётӣ гирифтан (JSON)','Скачать резервную копию (JSON)','Download backup (JSON)'],
+restore:['Барқарор кардан аз файл','Восстановить из файла','Restore from file'],
+restoreOk:['Барқарор шуд: {n} сабт','Восстановлено записей: {n}','Restored {n} records'],
+restoreBad:['Файл нодуруст аст','Неверный файл','Invalid file'],
+restoreWarn:['Маълумоти файл ба маълумоти ҷорӣ навишта мешавад. Давом медиҳед?','Данные из файла перезапишут текущие. Продолжить?','File data will overwrite current data. Continue?'],
+school:['Маълумоти марказ','Данные центра','School settings'],
+schoolName:['Номи марказ','Название центра','School name'],
+logo:['Логотипи марказ','Логотип центра','School logo'],
+removeLogo:['Логотипро нест кардан','Удалить логотип','Remove logo'],
+workStart:['Оғози кор (агар дарс набошад)','Начало работы (если нет уроков)','Work start (if no lessons)'],
+grace:['Муҳлати иҷозатдодашуда (дақиқа)','Допуск опоздания (мин)','Grace period (min)'],
+sampleNote:['Ин маълумоти намунавӣ аст. Онро нест кунед ва маълумоти воқеиро ворид намоед.','Это демонстрационные данные. Удалите их и введите реальные.','This is sample data. Delete it and enter real data.'],
+// settings
+language:['Забон','Язык','Language'],
+theme:['Намуд','Тема','Theme'],
+themeAuto:['Худкор','Авто','Auto'],
+themeLight:['Равшан','Светлая','Light'],
+themeDark:['Торик','Тёмная','Dark'],
+changePass:['Иваз кардани парол','Сменить пароль','Change password'],
+curPass:['Пароли ҷорӣ','Текущий пароль','Current password'],
+newPass:['Пароли нав (аққал 8 аломат)','Новый пароль (мин. 8 символов)','New password (min 8 chars)'],
+newPass2:['Пароли навро такрор кунед','Повторите новый пароль','Repeat new password'],
+passChanged:['Парол иваз шуд','Пароль изменён','Password changed'],
+passShort:['Парол бояд аққал 8 аломат дошта бошад','Пароль минимум 8 символов','Password must be at least 8 characters'],
+passMismatch:['Паролҳо мувофиқ нестанд','Пароли не совпадают','Passwords do not match'],
+wrongCur:['Пароли ҷорӣ нодуруст аст','Текущий пароль неверный','Current password is wrong'],
+mustChangeNow:['Бо сабаби бехатарӣ паролро ҳозир иваз кунед.','В целях безопасности смените пароль сейчас.','For security, change your password now.'],
+logout:['Баромадан','Выйти','Sign out'],
+update:['Навсозии барнома','Обновить приложение','Update app'],
+updateHint:['Версияи навтаринро бор мекунад','Загрузит последнюю версию','Loads the latest version'],
+version:['Версия','Версия','Version'],
+sync:['Ҳамоҳангсозӣ','Синхронизация','Sync'],
+syncNow:['Ҳозир ҳамоҳанг кардан','Синхронизировать','Sync now'],
+about:['Дар бораи барнома','О приложении','About'],
+// misc
+hours:['соат','ч','h'],
+minShort:['дақ.','мин','min'],
+none:['—','—','—'],
+choose:['Интихоб кунед','Выберите','Choose'],
+required:['Майдонҳои зарурӣ пур карда нашуданд','Заполните обязательные поля','Fill in the required fields'],
+zoneG:['Рӯйхати сабз (аз 90 боло)','Зелёный список (от 90)','Green list (90+)'],
+zoneW:['Рӯйхати сафед (70–89)','Белый список (70–89)','White list (70–89)'],
+zoneR:['Рӯйхати сурх (аз 70 поён)','Красный список (ниже 70)','Red list (below 70)'],
+maxScore:['Холи максималӣ (масалан 100)','Макс. балл (например 100)','Max score (e.g. 100)'],
+enterResults:['Ворид кардани натиҷаҳо','Внести результаты','Enter results'],
+al_examNew:['Имтиҳони нав таъин шуд: {g}','Назначен экзамен: {g}','Exam scheduled: {g}'],
+al_examDone:['Имтиҳон гузашт: {g}','Экзамен проведён: {g}','Exam held: {g}'],
+examHint:['Имтиҳонро хаттӣ дар коғаз гиред ва натиҷаро (хол) дар инҷо ворид кунед.','Проведите экзамен письменно на бумаге и внесите баллы здесь.','Hold the exam on paper and enter the scores here.'],
+zShortG:['Сабз','Зелёный','Green'],
+zShortW:['Сафед','Белый','White'],
+zShortR:['Сурх','Красный','Red'],
+asImage:['Расм','Картинка','Image'],
+saveImg:['Захира кардан (PNG)','Сохранить (PNG)','Save (PNG)'],
+shareImg:['Фиристодан','Поделиться','Share'],
+imgHint:['Расмро нигоҳ доред ва «Захира» ё «Фиристодан»-ро пахш кунед.','Сохраните или отправьте картинку.','Save or share the image.'],
+tProf:['Ҳисоботи омӯзгор','Отчёт по преподавателю','Teacher report'],
+selTeacher:['Омӯзгорро интихоб кунед','Выберите преподавателя','Choose a teacher'],
+incUnmarked:['Дарсҳои қайдношударо ҳам ҳисоб кун','Считать неотмеченные уроки','Count unmarked lessons'],
+daysTaught:['Рӯзҳои дарс','Дней с уроками','Days taught'],
+lessonsHeld:['Дарсҳои гузашта','Проведено уроков','Lessons held'],
+teachHours:['Соатҳои дарс','Часы уроков','Teaching hours'],
+siteHours:['Соати дар кор','Часы на работе','Hours on site'],
+examsHeld:['Имтиҳонҳои гирифташуда','Проведено экзаменов','Exams held'],
+examsMonth:['Имтиҳон дар моҳ','Экзаменов за месяц','Exams this month'],
+groupMonthScore:['Бали моҳонаи гуруҳ','Месячный балл группы','Group monthly score'],
+dayList:['Рӯзҳои кор','Рабочие дни','Working days'],
+total2:['Ҷамъ','Итого','Total'],
+unmarkedN:['қайд нашуд','не отмечено','unmarked'],
+onSite:['Дар кор','На работе','On site'],
+studentMonthAvg:['Миёнаи моҳонаи хонандагон','Средний балл учеников за месяц','Students\' monthly average'],
+noExamsMonth:['Дар ин моҳ имтиҳон нест','В этом месяце экзаменов нет','No exams this month'],
+};
+const LANGS=['tg','ru','en'];
+const LNAMES={tg:'Тоҷикӣ',ru:'Русский',en:'English'};
+let lang=(()=>{try{return localStorage.getItem('fs_lang')||'tg'}catch(e){return 'tg'}})();
+function t(k,vars){
+  const r=DICT[k]; let s=r?(r[LANGS.indexOf(lang)]||r[0]):k;
+  if(vars) for(const x in vars) s=s.split('{'+x+'}').join(vars[x]);
+  return s;
+}
+/* ================= helpers ================= */
+const VER='1.0.0';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=()=>ymd(new Date());
+const nowHM=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+const toMin=hm=>{const p=String(hm||'0:0').split(':');return (+p[0])*60+(+p[1]||0)};
+const fromMin=m=>pad(Math.floor(m/60))+':'+pad(m%60);
+const dowOf=d=>{const x=d.getDay();return x===0?7:x};
+const parseYmd=s=>{const p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])};
+const addDays=(s,n)=>{const d=parseYmd(s);d.setDate(d.getDate()+n);return ymd(d)};
+const fmtDate=s=>{if(!s)return '';const p=s.split('-');return p[2]+'.'+p[1]+'.'+p[0]};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const initials=n=>String(n||'?').trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
+const pct=(a,b)=>b?Math.round(a*100/b):0;
+const sortBy=(arr,f)=>arr.sort((a,b)=>{const x=f(a),y=f(b);return x<y?-1:x>y?1:0});
+const vals=o=>Object.keys(o).map(id=>Object.assign({id},o[id]));
+
+const IC={
+home:'M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z',
+groups:'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20c0-3.3 2.9-5.5 6.5-5.5s6.5 2.2 6.5 5.5M16 4.3a3.5 3.5 0 0 1 0 6.4M17.5 14.7c2.4.5 4 2.3 4 5.3',
+calendar:'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+student:'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4 3.6-6 8-6s8 2 8 6',
+exam:'M9 4h6v3H9zM7 5.5H5a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6.5a1 1 0 0 0-1-1h-2M9 14l2 2 4-4',
+announce:'M3 10v4h3l8 4V6L6 10H3zM17.5 9a4 4 0 0 1 0 6',
+bell:'M6 17v-6a6 6 0 1 1 12 0v6l2 2H4zM10 21h4',
+clock:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2',
+report:'M4 20V10M10 20V4M16 20v-7M22 20H2',
+tasks:'M4 6l2 2 3-3M4 14l2 2 3-3M12 7h8M12 15h8',
+book:'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5M8 7h7',
+chat:'M4 5h16v11H10l-6 4z',
+shield:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4',
+gear:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z',
+search:'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-5-5',
+plus:'M12 5v14M5 12h14',
+back:'M15 5l-7 7 7 7',
+x:'M6 6l12 12M18 6L6 18',
+trash:'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13',
+edit:'M4 20h4L19 9l-4-4L4 16zM14 6l4 4',
+check:'M5 12l5 5 9-10',
+logout:'M10 4H5v16h5M15 8l4 4-4 4M19 12H9',
+download:'M12 4v11M7 11l5 5 5-5M5 20h14',
+upload:'M12 16V5M7 9l5-5 5 5M5 20h14',
+phone:'M5 4h4l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z',
+more:'M5 12h.01M12 12h.01M19 12h.01',
+refresh:'M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7',
+badge:'M4 5h16v14H4zM8 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM5.5 16c.5-1.5 1.7-2 2.5-2s2 .5 2.5 2M14 9h4M14 13h4',
+print:'M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z'
+};
+const ic=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${IC[n]||''}"/></svg>`;
+const DEFAULT_LOGO=`<svg viewBox="0 0 48 48" width="100%" height="100%" aria-hidden="true"><rect width="48" height="48" fill="#2B44D6"/><path d="M24 9l17 8-17 8-17-8z" fill="#FFB703"/><path d="M14 23v8c0 3 4.5 6 10 6s10-3 10-6v-8l-10 5z" fill="#fff"/><rect x="39" y="17" width="2.5" height="13" rx="1.2" fill="#FFB703"/></svg>`;
+
+/* ================= state & store (Firebase) ================= */
+const COLS=['staff','groups','students','lessons','sattend','tattend','announcements','notices','exams','tasks','materials','messages','reports','resets','settings'];
+const S={};COLS.forEach(c=>S[c]={});
+const loaded={};
+let DB=null,canWrite=true,online=navigator.onLine;
+let AUTH=null,ROLE=null,authReady=false,needSetup=false,settingUp=false,waited=false;
+let meId=null;
+const R={v:'home',p:null,tab:null,stack:[],day:null,filter:{},q:''};
+const qGet=()=>[];
+function flush(){}
+window.addEventListener('online',()=>{online=true;render()});
+window.addEventListener('offline',()=>{online=false;render()});
+
+const SUBS=[];let nT=null;
+function resetData(){COLS.forEach(c=>{S[c]={};loaded[c]=false})}
+function unsubAll(){while(SUBS.length){try{SUBS.pop()()}catch(e){}}}
+function subscribe(){
+  unsubAll();resetData();
+  const wide=ROLE==='admin'||ROLE==='head';
+  const filt={};
+  if(!wide){filt.tattend=['teacherId','==',meId];filt.reports=['teacherId','==',meId];filt.tasks=['assignee','==',meId];filt.messages=['from','==',meId];filt.notices=['to','in',['all',meId]]}
+  COLS.forEach(c=>{
+    if(c==='resets'&&ROLE!=='admin')return;
+    SUBS.push(DB.collection(c,filt[c]).onSnapshot(snap=>{
+      const o={};snap.docs.forEach(d=>{o[d.id]=d.data()});
+      S[c]=o;loaded[c]=true;render();
+      if(c==='lessons'||c==='groups'){clearTimeout(nT);nT=setTimeout(planNotifs,2500)}
+    },err=>{console.warn('sub',c,err&&err.code)}));
+  });
+}
+async function W(op,col,id,data){
+  try{
+    if(!DB)throw {code:'offline'};
+    const ref=DB.collection(col).doc(id);
+    if(op==='delete')await ref.delete();else if(op==='update')await ref.update(data);else await ref.set(data);
+    return true;
+  }catch(e){
+    const c=e&&e.code;
+    if(c==='permission-denied'||c==='unauthenticated'){toast(t('noPerm'));return null}
+    console.warn('write',col,id,c);toast(t('dlFail'));return null;
+  }
+}
+
+/* ================= auth (Firebase Auth: ID -> synthetic e-mail) ================= */
+const loginKey=s=>String(s||'').trim().toLowerCase().replace(/[^a-z0-9_\-]/g,'_');
+const emailFor=(key,v)=>key+(v?'.r'+v:'')+'@futureschool.app';
+function genPassword(){
+  const a='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+  const r=crypto.getRandomValues(new Uint8Array(10));
+  return [...r].map(x=>a[x%a.length]).join('');
+}
+let fails=0,lockUntil=0;
+async function doLogin(id,pw){
+  if(Date.now()<lockUntil){toast(t('locked'));return false}
+  try{await FSX.signIn(loginKey(id),pw);fails=0;return true}
+  catch(e){
+    if(e&&e.code==='network'){toast(t('offline'));return false}
+    fails++;if(fails>=5){lockUntil=Date.now()+30000;fails=0;toast(t('locked'))}else toast(t('badLogin'));
+    return false;
+  }
+}
+async function onAuthChanged(u){
+  if(settingUp)return;
+  AUTH=u;authReady=true;waited=false;
+  if(!u){unsubAll();resetData();meId=null;ROLE=null;R.v='home';R.p=null;R.stack=[];R.tab=null;render();return}
+  try{
+    const ud=await FSX.getDoc('users',u.uid);
+    if(!ud||ud.active===false){toast(t('noAccount'));await FSX.signOut();return}
+    meId=ud.staffId;ROLE=ud.role;
+  }catch(e){meId=null}
+  if(meId)subscribe();
+  setTimeout(()=>{waited=true;render()},8000);
+  render();
+}
+function logout(){try{FSX.signOut()}catch(e){}}
+const me=()=>meId?S.staff[meId]:null;
+const role=()=>{const m=me();return m?m.role:null};
+const isA=()=>role()==='admin';
+const isH=()=>role()==='head';
+const isT=()=>role()==='teacher';
+const seeAll=()=>isA()||isH();
+
+/* ================= derived data ================= */
+const gname=id=>S.groups[id]?S.groups[id].name:'—';
+const sname=id=>S.students[id]?S.students[id].name:'—';
+const tname=id=>S.staff[id]?S.staff[id].name:'—';
+function myGroupIds(){
+  if(seeAll())return Object.keys(S.groups);
+  const set=new Set();
+  Object.keys(S.groups).forEach(g=>{if(S.groups[g].teacherId===meId)set.add(g)});
+  Object.keys(S.lessons).forEach(l=>{if(S.lessons[l].teacherId===meId&&S.lessons[l].groupId)set.add(S.lessons[l].groupId)});
+  return [...set].filter(g=>S.groups[g]);
+}
+const canSeeGroup=g=>seeAll()||myGroupIds().includes(g);
+const groupStudents=g=>sortBy(vals(S.students).filter(s=>s.groupId===g),s=>s.name||'');
+function myStudents(){const gs=new Set(myGroupIds());return sortBy(vals(S.students).filter(s=>gs.has(s.groupId)),s=>s.name||'')}
+function myLessons(){
+  if(seeAll())return vals(S.lessons);
+  const gs=new Set(Object.keys(S.groups).filter(g=>S.groups[g].teacherId===meId));
+  return vals(S.lessons).filter(l=>l.teacherId===meId||(!l.teacherId&&gs.has(l.groupId)));
+}
+function conflictsOf(l){
+  const a=toMin(l.start),b=toMin(l.end);
+  return vals(S.lessons).filter(o=>o.id!==l.id&&+o.day===+l.day&&toMin(o.start)<b&&a<toMin(o.end)&&((o.teacherId&&o.teacherId===l.teacherId)||o.groupId===l.groupId));
+}
+const lessonsOnDay=(day,list)=>sortBy((list||myLessons()).filter(l=>+l.day===+day),l=>l.start);
+const sattKey=(date,lid)=>date+'_'+lid;
+const sattOf=(date,lid)=>S.sattend[sattKey(date,lid)];
+function studentAtt(sid,from,to){
+  const st=S.students[sid];if(!st)return{p:0,a:0,l:0,n:0,pct:0};
+  let p=0,a=0,l=0;
+  Object.keys(S.sattend).forEach(k=>{
+    const r=S.sattend[k];if(r.groupId!==st.groupId||r.held===false)return;
+    if(from&&r.date<from)return;if(to&&r.date>to)return;
+    const m=r.marks&&r.marks[sid];if(!m)return;
+    if(m==='p')p++;else if(m==='a')a++;else if(m==='l')l++;
+  });
+  const n=p+a+l;return{p,a,l,n,pct:n?Math.round((p+l)*100/n):0};
+}
+function studentExams(sid){
+  const out=[];
+  Object.keys(S.exams).forEach(id=>{const e=S.exams[id];const r=e.results&&e.results[sid];if(r)out.push({id,title:e.title,date:e.date,score:r.score,max:r.max,pct:r.pct})});
+  return sortBy(out,x=>x.date).reverse();
+}
+function studentExamAvg(sid){const x=studentExams(sid);return x.length?Math.round(x.reduce((s,e)=>s+e.pct,0)/x.length):null}
+const zoneOf=p=>p>=90?'g':p>=70?'w':'r';
+const maxOf=e=>+e.max||((e.questions||[]).reduce((s,q)=>s+(+q.pts||0),0))||100;
+function zoneCounts(e){const z={g:0,w:0,r:0};Object.values(e.results||{}).forEach(r=>z[zoneOf(r.pct)]++);return z}
+function examStats(e){
+  const rs=Object.values(e.results||{});if(!rs.length)return{n:0,avg:0,min:0,max:0};
+  const p=rs.map(r=>r.pct);return{n:rs.length,avg:Math.round(p.reduce((a,b)=>a+b,0)/p.length),min:Math.min(...p),max:Math.max(...p)};
+}
+function visibleExams(){const gs=new Set(myGroupIds());return vals(S.exams).filter(e=>gs.has(e.groupId))}
+function visibleAnn(){
+  const gs=new Set(myGroupIds());
+  return sortBy(vals(S.announcements).filter(a=>seeAll()||a.target==='all'||!a.target||gs.has(a.target)),a=>a.ts||0).reverse();
+}
+const settings=()=>S.settings.main||{};
+const workStart=()=>settings().workStart||'08:00';
+const graceMin=()=>settings().grace!=null?+settings().grace:10;
+function firstLessonStart(tid,date){
+  const d=dowOf(parseYmd(date));
+  const ls=vals(S.lessons).filter(l=>+l.day===d&&(l.teacherId===tid||(!l.teacherId&&S.groups[l.groupId]&&S.groups[l.groupId].teacherId===tid)));
+  return ls.length?ls.map(l=>l.start).sort()[0]:null;
+}
+const hoursBetween=(a,b)=>(a&&b)?Math.max(0,toMin(b)-toMin(a)):0;
+const fmtHM=m=>Math.floor(m/60)+':'+pad(m%60);
+
+/* ================= alerts (computed) ================= */
+const readKey=()=>'fs_read_'+meId;
+function readSet(){try{return new Set(JSON.parse(localStorage.getItem(readKey())||'[]'))}catch(e){return new Set()}}
+function readSave(s){try{localStorage.setItem(readKey(),JSON.stringify([...s].slice(-600)))}catch(e){}}
+function buildAlerts(){
+  const out=[];const td=today();const nm=toMin(nowHM());const d=dowOf(new Date());
+  const push=(key,date,level,icon,text,route,p)=>out.push({key,date,level,icon,text,route,p});
+  const lessons=lessonsOnDay(d);
+  if(!isA()){
+    lessons.forEach(l=>{
+      const st=toMin(l.start),en=toMin(l.end);const g=gname(l.groupId)+' · '+l.start;
+      if(st-nm>0&&st-nm<=15)push('les-'+l.id+td,td,'high','clock',t('al_lesson',{n:st-nm,g:g}),'schedule');
+      else if(nm>=st&&nm<en)push('lesn-'+l.id+td,td,'normal','clock',t('al_lessonNow',{g:g}),'schedule');
+      if(nm>=en&&!sattOf(td,l.id)&&canSeeGroup(l.groupId)&&isT())push('un-'+l.id+td,td,'high','calendar',t('al_unmarked',{g:g}),'attendance',{lid:l.id,date:td});
+    });
+    if(isT()&&lessons.length){
+      const rec=S.tattend[meId+'_'+td];
+      if(!rec&&nm>=toMin(firstLessonStart(meId,td)||workStart())-30)push('ci-'+td,td,'high','clock',t('al_checkin'),'tAtt');
+      const last=Math.max(...lessons.map(l=>toMin(l.end)));
+      if(nm>=last&&!S.reports[meId+'_'+td])push('rep-'+td,td,'normal','report',t('al_report'),'reports');
+    }
+    visibleExams().filter(e=>e.date===td&&!Object.keys(e.results||{}).length).forEach(e=>push('ex-'+e.id,td,'high','exam',t('al_exam',{g:e.title+' · '+gname(e.groupId)}),'examView',{id:e.id}));
+    vals(S.tasks).filter(x=>x.assignee===meId&&x.status!=='done').forEach(x=>{
+      const late=x.due&&x.due<td;const soon=x.due&&x.due<=addDays(td,3);
+      if(late)push('tk-'+x.id+'L',td,'high','tasks',t('al_taskLate',{g:x.title}),'tasks');
+      else if(soon||!x.due)push('tk-'+x.id,x.createdDate||td,'normal','tasks',t('al_task',{g:x.title+(x.due?' · '+fmtDate(x.due):'')}),'tasks');
+    });
+  }
+  visibleAnn().filter(a=>(a.ts||0)>Date.now()-14*864e5).forEach(a=>push('ann-'+a.id,ymd(new Date(a.ts||Date.now())),a.level==='high'?'high':'normal','announce',t('al_ann',{g:a.title}),'announcements'));
+  vals(S.notices).filter(n=>n.to==='all'||n.to===meId).filter(n=>(n.ts||0)>Date.now()-14*864e5).forEach(n=>push('nt-'+n.id,ymd(new Date(n.ts||Date.now())),n.level||'normal','calendar',n.text,'schedule'));
+  if(isA()||isH()){
+    vals(S.exams).filter(e=>(e.created||0)>Date.now()-14*864e5).forEach(e=>push('exn-'+e.id,ymd(new Date(e.created)),'normal','exam',t('al_examNew',{g:e.title+' · '+gname(e.groupId)+' · '+fmtDate(e.date)}),'examView',{id:e.id}));
+    vals(S.exams).forEach(e=>{const rs=Object.values(e.results||{});if(!rs.length)return;const last=Math.max(...rs.map(r=>r.ts||0));if(last<Date.now()-14*864e5)return;const z=zoneCounts(e),st=examStats(e);
+      push('exr-'+e.id,ymd(new Date(last)),'normal','exam',t('al_examDone',{g:e.title+' · '+gname(e.groupId)+' — '+st.avg+'% (🟢'+z.g+' ⚪'+z.w+' 🔴'+z.r+')'}),'examView',{id:e.id})});
+  }
+  if(seeAll()){
+    vals(S.messages).filter(m=>m.status==='new').forEach(m=>push('msg-'+m.id,ymd(new Date(m.ts||Date.now())),'normal','chat',t('al_msg',{g:tname(m.from)}),'messages'));
+  }
+  if(!seeAll()){
+    vals(S.messages).filter(m=>m.from===meId&&m.reply&&m.reply.ts).forEach(m=>push('rpl-'+m.id,ymd(new Date(m.reply.ts)),'normal','chat',t('al_reply'),'messages'));
+  }
+  if(isA()){
+    vals(S.resets).filter(r=>!r.done).forEach(r=>push('rs-'+r.id,ymd(new Date(r.ts||Date.now())),'high','shield',t('al_reset',{g:r.login}),'staff'));
+  }
+  return out;
+}
+function alertState(){
+  const rs=readSet();const all=buildAlerts().map(a=>Object.assign(a,{read:rs.has(a.key)}));
+  return{all,unread:all.filter(a=>!a.read).length,rs};
+}
+
+/* ================= UI plumbing ================= */
+let toastT=null;
+function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),3200)}
+let modalOnClose=null;
+function openModal(title,body,foot,onMount){
+  const m=$('#modal');
+  m.innerHTML=`<div class="sheet"><div class="sh"><h2>${esc(title)}</h2><button class="ib" data-a="closeModal" aria-label="${esc(t('close'))}">${ic('x')}</button></div><div class="sb">${body}</div>${foot?`<div class="sf">${foot}</div>`:''}</div>`;
+  m.classList.add('open');
+  if(onMount)onMount(m);
+  const f=m.querySelector('input:not([type=hidden]),textarea,select');
+}
+function closeModal(){const m=$('#modal');m.classList.remove('open');m.innerHTML='';if(modalOnClose){const f=modalOnClose;modalOnClose=null;f()}render()}
+const modalOpen=()=>$('#modal').classList.contains('open');
+function confirmBox(msg,okLabel){
+  return new Promise(res=>{
+    openModal(msg,'',`<button class="btn ghost" data-a="cfNo">${esc(t('cancel'))}</button><button class="btn bad" data-a="cfYes">${esc(okLabel||t('yes'))}</button>`);
+    window.__cf=v=>{window.__cf=null;$('#modal').classList.remove('open');$('#modal').innerHTML='';res(v);render()};
+  });
+}
+function go(v,p,tab){R.stack.push({v:R.v,p:R.p,tab:R.tab,day:R.day});R.v=v;R.p=p||null;R.tab=tab||null;window.scrollTo(0,0);render()}
+function goRoot(v){R.stack=[];R.v=v;R.p=null;R.tab=null;window.scrollTo(0,0);render()}
+function goBack(){const s=R.stack.pop();if(s){R.v=s.v;R.p=s.p;R.tab=s.tab;R.day=s.day}else{R.v='home';R.p=null}window.scrollTo(0,0);render()}
+/* ================= views (A) ================= */
+const V={};
+const chip=(txt,cls)=>`<span class="chip ${cls||''}">${esc(txt)}</span>`;
+const empty=(msg)=>`<div class="empty">${esc(msg||t('empty'))}</div>`;
+const roleLabel=r=>t('role_'+r);
+const dayName=d=>t('d'+d);
+function barCls(p){return p>=75?'ok':p>=50?'warn':'bad'}
+const bar=(p)=>`<div class="bar ${barCls(p)}"><i style="width:${Math.max(0,Math.min(100,p))}%"></i></div>`;
+function opts(list,sel,ph){return (ph?`<option value="">${esc(ph)}</option>`:'')+list.map(o=>`<option value="${esc(o[0])}" ${String(o[0])===String(sel)?'selected':''}>${esc(o[1])}</option>`).join('')}
+const fld=(label,inner)=>`<label class="f"><span>${esc(label)}</span>${inner}</label>`;
+const teacherOpts=()=>sortBy(vals(S.staff).filter(s=>s.role==='teacher'&&s.active!==false),s=>s.name).map(s=>[s.id,s.name]);
+const groupOpts=(onlyMine)=>(onlyMine?myGroupIds():Object.keys(S.groups)).map(g=>[g,gname(g)]);
+
+const ROOTS=['home','schedule','groups','alerts','settings'];
+function viewTitle(){
+  const m={home:t('app'),groups:t('myGroups'),schedule:t('schedule'),students:t('students'),exams:t('exams'),announcements:t('announcements'),alerts:t('alerts'),
+    tAtt:t('tAtt'),reports:t('reports'),tasks:t('tasks'),materials:t('materials'),messages:t('messages'),admin:t('admin'),settings:t('settings'),search:t('search'),
+    tprof:t('tProf'),staff:t('staff'),backup:t('backup'),school:t('school'),attendance:t('tabAtt'),pw:t('changePass')};
+  if(R.v==='group')return gname(R.p);
+  if(R.v==='student')return sname(R.p);
+  if(R.v==='examView')return (S.exams[R.p]||{}).title||t('exams');
+  if(R.v==='groups'&&seeAll())return t('groups');
+  return m[R.v]||t('app');
+}
+
+function shell(){
+  const al=alertState();
+  const sub=R.stack.length>0&&!ROOTS.includes(R.v);
+  const left=sub?`<button class="ib" data-a="back" aria-label="${esc(t('back'))}">${ic('back')}</button>`:`<div class="logo">${settings().logo?`<img alt="" src="${esc(settings().logo)}">`:DEFAULT_LOGO}</div>`;
+  const title=R.v==='home'?`${esc(settings().schoolName||'Future School')}<span class="sub">${esc(t('app'))}</span>`:esc(viewTitle());
+  const fnc=V[R.v]?V[R.v]():empty();
+  const nav=[['home','home',t('home')],['schedule','calendar',t('schedule').split(' ')[0]],['groups','groups',t('groups')],['alerts','bell',t('alerts')],['settings','gear',t('settings')]];
+  return `<header class="top">${left}<h1>${title}</h1>
+    <button class="ib" data-a="go" data-v="search" aria-label="${esc(t('search'))}">${ic('search')}</button>
+    ${R.v!=='alerts'?`<button class="ib" data-a="root" data-v="alerts" aria-label="${esc(t('alerts'))}">${ic('bell')}${al.unread?`<span class="dot">${al.unread>99?'99+':al.unread}</span>`:''}</button>`:''}
+  </header><main id="view">${fnc}</main>
+  <nav class="nav">${nav.map(n=>`<button data-a="root" data-v="${n[0]}" class="${R.v===n[0]||(n[0]==='groups'&&R.v==='group')?'on':''}">${ic(n[1])}<span>${esc(n[2])}</span>${n[0]==='alerts'&&al.unread?`<span class="dot">${al.unread>99?'99+':al.unread}</span>`:''}</button>`).join('')}</nav>`;
+}
+
+/* ---- home ---- */
+V.home=function(){
+  const m=me();const td=today();const d=dowOf(new Date());const nm=toMin(nowHM());
+  const ls=lessonsOnDay(d);const next=ls.find(l=>toMin(l.end)>nm);
+  const al=alertState();const q=qGet().length;
+  let ban='';
+  if(!canWrite)ban+=`<div class="banner warn">${esc(t('readOnly'))}</div>`;
+  if(q)ban+=`<div class="banner warn">${esc(t('pending'))}: ${q} <button class="btn sm2 sec" data-a="flush" style="margin-left:8px">${esc(t('syncNow'))}</button></div>`;
+  else if(!online)ban+=`<div class="banner warn">${esc(t('offline'))}</div>`;
+  if(isA()&&Object.keys(S.groups).some(k=>k.startsWith('smp_')))ban+=`<div class="banner ok">${esc(t('sampleNote'))}</div>`;
+  let nl='';
+  if(next){
+    const st=toMin(next.start);const when=nm>=st?t('nowLesson'):t('inMin',{n:st-nm});
+    nl=`<div class="sm" style="opacity:.85">${esc(t('nextLesson'))} · ${esc(when)}</div><div class="big">${esc(next.start)}–${esc(next.end)} · ${esc(gname(next.groupId))}</div><div class="sm" style="opacity:.85">${esc(next.subject||'')}${seeAll()&&next.teacherId?' · '+esc(tname(next.teacherId)):''}</div>${isT()&&canSeeGroup(next.groupId)?`<button class="btn acc" data-a="attOpen" data-lid="${next.id}" data-date="${td}">${ic('check')}${esc(t('markAtt'))}</button>`:''}`;
+  }else nl=`<div class="big" style="font-size:18px">${esc(t('noNextLesson'))}</div>`;
+  const hero=`<div class="hero"><div class="row sp"><div><div class="sm" style="opacity:.85">${esc(t('hello'))},</div><div class="big">${esc(m.name)}</div></div>${chip(roleLabel(m.role),'')}</div><div style="height:8px"></div>${nl}</div>`;
+  let ci='';
+  if(isT()){
+    const rec=S.tattend[meId+'_'+td];
+    if(!rec)ci=`<button class="btn full" data-a="checkIn" style="margin-bottom:12px">${ic('clock')}${esc(t('checkIn'))}</button>`;
+    else if(!rec.out)ci=`<div class="card"><div class="row sp"><div><b>${esc(t('inAt',{t:rec.in}))}</b>${rec.late?`<div class="sm" style="color:var(--bad)">${esc(t('lateMin',{n:rec.lateMin||0}))}</div>`:`<div class="sm mut">${esc(t('onTime'))}</div>`}</div><button class="btn bad sm2" data-a="checkOut">${esc(t('checkOut'))}</button></div></div>`;
+    else ci=`<div class="banner ok">${esc(t('dayDone'))}: ${esc(rec.in)}–${esc(rec.out)} (${fmtHM(hoursBetween(rec.in,rec.out))} ${esc(t('hours'))})</div>`;
+  }
+  const stats=`<div class="row" style="margin-bottom:12px"><div class="stat"><b>${myGroupIds().length}</b><span>${esc(t('groups'))}</span></div><div class="stat"><b>${myStudents().length}</b><span>${esc(t('tabStudents'))}</span></div><div class="stat"><b>${ls.length}</b><span>${esc(t('lessons'))}</span></div></div>`;
+  const T=[['groups','groups',t('myGroups')],['schedule','calendar',t('schedule')],['students','student',t('students')],['exams','exam',t('exams')],['announcements','announce',t('announcements')],
+    ['alerts','bell',t('alerts'),al.unread],['tAtt','clock',t('tAtt')],['reports','report',t('reports')],['tasks','tasks',t('tasks')],['materials','book',t('materials')],['messages','chat',t('messages')]];
+  if(isA()||isH())T.push(['tprof','badge',t('tProf')]);
+  if(isA())T.push(['admin','shield',t('admin')]);
+  T.push(['settings','gear',t('settings')]);
+  const tiles=`<div class="tiles">${T.map(x=>`<button class="tile" data-a="${ROOTS.includes(x[0])?'root':'go'}" data-v="${x[0]}"><div class="ti">${ic(x[1])}</div><b>${esc(x[2])}</b>${x[3]?`<span class="dot">${x[3]}</span>`:''}</button>`).join('')}</div>`;
+  return ban+hero+ci+stats+tiles;
+};
+
+/* ---- groups ---- */
+V.groups=function(){
+  const gs=sortBy(myGroupIds().map(g=>Object.assign({id:g},S.groups[g])),g=>g.name||'');
+  const fab=isA()?`<button class="fab" data-a="groupForm" aria-label="${esc(t('newGroup'))}">${ic('plus')}</button>`:'';
+  if(!gs.length)return empty()+fab;
+  return gs.map(g=>{const n=groupStudents(g.id).length;
+    return `<div class="card tap" data-a="go" data-v="group" data-p="${g.id}"><div class="row sp"><div class="grow"><div class="b" style="font-size:18px">${esc(g.name)}</div><div class="sm mut">${esc(g.teacherId?tname(g.teacherId):t('noTeacher'))}${g.subject?' · '+esc(g.subject):''}</div></div>${chip(n+' '+t('studentsN'))}</div></div>`}).join('')+fab;
+};
+V.group=function(){
+  const g=S.groups[R.p];if(!g)return empty();
+  const tab=R.tab||'students';
+  const tabs=[['students',t('tabStudents')],['schedule',t('tabSchedule')],['att',t('tabAtt')],['exams',t('tabExams')],['progress',t('tabProgress')]];
+  const sts=groupStudents(R.p);
+  let h=`<div class="card"><div class="row sp"><div class="grow"><div class="sm mut">${esc(t('teacher'))}</div><div class="b">${esc(g.teacherId?tname(g.teacherId):t('noTeacher'))}</div>${g.subject?`<div class="sm mut">${esc(g.subject)}</div>`:''}</div><div class="tc"><div class="b" style="font-size:26px">${sts.length}</div><div class="xs mut">${esc(t('total'))}</div></div></div>${isA()?`<div class="row" style="margin-top:10px"><button class="btn sec sm2" data-a="groupForm" data-id="${R.p}">${ic('edit')}${esc(t('edit'))}</button><button class="btn ghost sm2" data-a="groupDel" data-id="${R.p}">${ic('trash')}</button></div>`:''}</div>`;
+  h+=`<div class="tabs">${tabs.map(x=>`<button data-a="tab" data-v="${x[0]}" class="${tab===x[0]?'on':''}">${esc(x[1])}</button>`).join('')}</div>`;
+  if(tab==='students'){
+    h+=sts.length?`<div class="card">${sts.map(s=>`<div class="li" data-a="go" data-v="student" data-p="${s.id}" style="cursor:pointer"><div class="av">${esc(initials(s.name))}</div><div class="grow"><div class="b">${esc(s.name)}</div><div class="xs mut">${esc(s.code||'')}</div></div>${chip(studentAtt(s.id).pct+'%',studentAtt(s.id).n?barCls(studentAtt(s.id).pct):'gray')}</div>`).join('')}</div>`:empty();
+    if(isA())h+=`<button class="btn sec full" data-a="studentForm" data-g="${R.p}">${ic('plus')}${esc(t('newStudent'))}</button>`;
+  }else if(tab==='schedule'){
+    const ls=sortBy(vals(S.lessons).filter(l=>l.groupId===R.p),l=>l.day*10000+toMin(l.start));
+    h+=ls.length?ls.map(l=>lessonCard(l,false)).join(''):empty();
+  }else if(tab==='att'){
+    h+=`<button class="btn full" data-a="attOpen" data-g="${R.p}" data-date="${today()}" style="margin-bottom:12px">${ic('check')}${esc(t('markAtt'))}</button>`;
+    h+=sts.length?`<div class="card">${sts.map(s=>{const a=studentAtt(s.id);return `<div class="li"><div class="grow"><div class="b">${esc(s.name)}</div><div class="xs mut">${esc(t('present2'))} ${a.p} · ${esc(t('absent2'))} ${a.a} · ${esc(t('late2'))} ${a.l}</div>${a.n?bar(a.pct):''}</div><b>${a.n?a.pct+'%':'—'}</b></div>`}).join('')}</div>`:empty();
+  }else if(tab==='exams'){
+    const ex=sortBy(vals(S.exams).filter(e=>e.groupId===R.p),e=>e.date).reverse();
+    h+=`<button class="btn sec full" data-a="examForm" data-g="${R.p}" style="margin-bottom:12px">${ic('plus')}${esc(t('newExam'))}</button>`;
+    h+=ex.length?ex.map(examCard).join(''):empty();
+  }else{
+    h+=sts.length?`<div class="card">${sts.map(s=>{const ea=studentExamAvg(s.id);const pr=+s.progress||0;return `<div class="li" data-a="go" data-v="student" data-p="${s.id}" style="cursor:pointer"><div class="grow"><div class="b">${esc(s.name)}</div><div class="xs mut">${esc(t('progress'))}: ${pr}% · ${esc(t('avgExam'))}: ${ea==null?'—':ea+'%'}</div>${bar(pr)}</div>${s.grade?chip(String(s.grade),'ok'):''}</div>`}).join('')}</div>`:empty();
+  }
+  return h;
+};
+
+/* ---- schedule ---- */
+function lessonCard(l,withAct){
+  const td=today();const cf=conflictsOf(l);
+  const done=sattOf(td,l.id)&&+l.day===dowOf(new Date());
+  return `<div class="card lesson ${cf.length?'conf':''} ${done?'done':''}"><div class="row"><div class="time">${esc(l.start)}<div class="xs mut">${esc(l.end)}</div></div><div class="grow"><div class="b">${esc(gname(l.groupId))}${l.subject?' · '+esc(l.subject):''}</div><div class="sm mut">${esc(l.teacherId?tname(l.teacherId):'—')}${withAct===false?' · '+esc(dayName(l.day)):''}</div>${cf.length?`<div class="sm" style="color:var(--bad);font-weight:700">⚠ ${esc(t('conflict'))}</div>`:''}</div></div>
+  ${withAct!==false?`<div class="row wrap" style="margin-top:10px">${(isT()||isA())&&canSeeGroup(l.groupId)?`<button class="btn sec sm2" data-a="attOpen" data-lid="${l.id}" data-date="${R.day&&+R.day===dowOf(new Date())||!R.day?td:''}">${ic('check')}${esc(t('markAtt'))}</button>`:''}${isA()?`<button class="btn ghost sm2" data-a="lessonForm" data-id="${l.id}">${ic('edit')}</button><button class="btn ghost sm2" data-a="lessonDel" data-id="${l.id}">${ic('trash')}</button>`:''}</div>`:isA()?`<div class="row" style="margin-top:8px"><button class="btn ghost sm2" data-a="lessonForm" data-id="${l.id}">${ic('edit')}</button><button class="btn ghost sm2" data-a="lessonDel" data-id="${l.id}">${ic('trash')}</button></div>`:''}</div>`;
+}
+V.schedule=function(){
+  const day=R.day||dowOf(new Date());
+  const seg=`<div class="seg">${[1,2,3,4,5,6,7].map(d=>`<button data-a="day" data-v="${d}" class="${+day===d?'on':''}">${esc(t('s'+d))}</button>`).join('')}</div>`;
+  const ls=lessonsOnDay(day);
+  return seg+`<div class="h2">${esc(dayName(day))}</div>`+(ls.length?ls.map(l=>lessonCard(l)).join(''):empty(t('noLessons')))+(isA()?`<button class="fab" data-a="lessonForm" aria-label="${esc(t('newLesson'))}">${ic('plus')}</button>`:'');
+};
+
+/* ---- students ---- */
+V.students=function(){
+  const gf=R.filter.sg||'';const q=(R.filter.sq||'').toLowerCase();
+  let list=myStudents().filter(s=>(!gf||s.groupId===gf)&&(!q||(s.name||'').toLowerCase().includes(q)||(s.code||'').toLowerCase().includes(q)));
+  const gs=myGroupIds();
+  return `<div class="search">${ic('search')}<input type="search" data-i="sq" placeholder="${esc(t('searchPh'))}" value="${esc(R.filter.sq||'')}"></div>
+  <div class="seg"><button data-a="sgf" data-v="" class="${!gf?'on':''}">${esc(t('all'))}</button>${gs.map(g=>`<button data-a="sgf" data-v="${g}" class="${gf===g?'on':''}">${esc(gname(g))}</button>`).join('')}</div>
+  ${list.length?`<div class="card">${list.map(s=>`<div class="li" data-a="go" data-v="student" data-p="${s.id}" style="cursor:pointer"><div class="av">${esc(initials(s.name))}</div><div class="grow"><div class="b">${esc(s.name)}</div><div class="xs mut">${esc(s.code||'')} · ${esc(gname(s.groupId))}</div></div><span class="mut">›</span></div>`).join('')}</div>`:empty()}
+  ${isA()?`<button class="fab" data-a="studentForm" aria-label="${esc(t('newStudent'))}">${ic('plus')}</button>`:''}`;
+};
+V.student=function(){
+  const s=S.students[R.p];if(!s||!canSeeGroup(s.groupId))return empty();
+  const a=studentAtt(R.p),ex=studentExams(R.p),ea=studentExamAvg(R.p),pr=+s.progress||0;
+  const notes=sortBy(Array.isArray(s.notes)?s.notes.slice():[],n=>n.ts||0).reverse();
+  return `<div class="card"><div class="row"><div class="av" style="width:56px;height:56px;font-size:20px">${esc(initials(s.name))}</div><div class="grow"><div class="b" style="font-size:19px">${esc(s.name)}</div><div class="sm mut">${esc(s.code||'')} · ${esc(gname(s.groupId))}</div></div></div>
+    ${s.parentPhone?`<div class="row" style="margin-top:12px"><a class="btn sec sm2" href="tel:${esc(s.parentPhone)}">${ic('phone')}${esc(s.parentPhone)}</a></div>`:''}
+    <div class="row wrap" style="margin-top:12px">${isA()?`<button class="btn sec sm2" data-a="studentForm" data-id="${R.p}">${ic('edit')}${esc(t('edit'))}</button><button class="btn ghost sm2" data-a="studentDel" data-id="${R.p}">${ic('trash')}</button>`:''}${(isT()||isA())?`<button class="btn sec sm2" data-a="studentProg" data-id="${R.p}">${esc(t('progress'))}</button>`:''}</div></div>
+  <div class="row" style="margin-bottom:12px"><div class="stat"><b>${a.n?a.pct+'%':'—'}</b><span>${esc(t('attPct'))}</span></div><div class="stat"><b>${ea==null?'—':ea+'%'}</b><span>${esc(t('avgExam'))}</span></div><div class="stat"><b>${s.grade||'—'}</b><span>${esc(t('grade'))}</span></div></div>
+  <div class="card"><div class="row sp"><b>${esc(t('progress'))}</b><b>${pr}%</b></div><div class="gap"></div>${bar(pr)}</div>
+  <div class="h3">${esc(t('attPct'))}</div><div class="card sm">${esc(t('present2'))}: <b>${a.p}</b> · ${esc(t('absent2'))}: <b>${a.a}</b> · ${esc(t('late2'))}: <b>${a.l}</b></div>
+  <div class="h3">${esc(t('examResults'))}</div>${ex.length?`<div class="card">${ex.map(e=>`<div class="li" ${S.exams[e.id]?`data-a="go" data-v="examView" data-p="${e.id}" style="cursor:pointer"`:''}><div class="grow"><div class="b">${esc(e.title)}</div><div class="xs mut">${esc(fmtDate(e.date))}</div></div><div class="tc"><b>${e.score}/${e.max}</b><div class="xs mut">${e.pct}%</div></div></div>`).join('')}</div>`:empty()}
+  <div class="row sp"><div class="h3">${esc(t('notes'))}</div>${(isT()||isA())?`<button class="btn sec sm2" data-a="noteAdd" data-id="${R.p}">${ic('plus')}${esc(t('add'))}</button>`:''}</div>
+  ${notes.length?notes.map(n=>`<div class="card"><div class="sm">${esc(n.text)}</div><div class="xs mut" style="margin-top:6px">${esc(n.byName||'')} · ${esc(fmtDate(ymd(new Date(n.ts||Date.now()))))}</div></div>`).join(''):empty()}`;
+};
+/* ================= views (B) ================= */
+function examCard(e){
+  const st=examStats(e);const td=today();const z=zoneCounts(e);
+  const tag=e.date===td?chip(t('today'),'warn'):e.date>td?chip(t('upcoming')):chip(t('history'),'gray');
+  return `<div class="card tap" data-a="go" data-v="examView" data-p="${e.id}"><div class="row sp"><div class="grow"><div class="b">${esc(e.title)}</div><div class="sm mut">${esc(gname(e.groupId))} · ${esc(fmtDate(e.date))}</div></div>${tag}</div>${st.n?`<div class="row wrap" style="margin-top:8px"><span class="chip ok">${z.g}</span><span class="chip wht">${z.w}</span><span class="chip bad">${z.r}</span><span class="sm mut">${esc(t('avg'))}: <b>${st.avg}%</b></span></div>`:''}</div>`;
+}
+V.exams=function(){
+  const td=today();const all=visibleExams();
+  const f=R.filter.ef||(all.some(e=>e.date===td)?'today':'all');
+  let list=all;
+  if(f==='today')list=all.filter(e=>e.date===td);else if(f==='upcoming')list=all.filter(e=>e.date>td);else if(f==='history')list=all.filter(e=>e.date<td);
+  sortBy(list,e=>e.date);if(f!=='upcoming')list.reverse();
+  const seg=[['today',t('today')],['upcoming',t('upcoming')],['history',t('examHistory')],['all',t('all')]];
+  return `<div class="seg">${seg.map(x=>`<button data-a="ef" data-v="${x[0]}" class="${f===x[0]?'on':''}">${esc(x[1])}</button>`).join('')}</div>${list.length?list.map(examCard).join(''):empty()}
+  ${isH()?'':`<button class="fab" data-a="examForm" aria-label="${esc(t('newExam'))}">${ic('plus')}</button>`}`;
+};
+V.examView=function(){
+  const e=S.exams[R.p];if(!e||!canSeeGroup(e.groupId))return empty();
+  const st=examStats(e);const mx=maxOf(e);
+  const rows=groupStudents(e.groupId).map(s=>({s,r:e.results&&e.results[s.id]}));
+  const taken=rows.filter(x=>x.r).sort((a,b)=>b.r.score-a.r.score);
+  const none=rows.filter(x=>!x.r);
+  const Z=[['g',t('zoneG'),'var(--ok-soft)','var(--ok)'],['w',t('zoneW'),'var(--card)','var(--mut)'],['r',t('zoneR'),'var(--bad-soft)','var(--bad)']];
+  let h=`<div class="card"><div class="b" style="font-size:19px">${esc(e.title)}</div><div class="sm mut">${esc(gname(e.groupId))} · ${esc(fmtDate(e.date))}</div>
+   <div class="row" style="margin-top:12px"><div class="stat"><b>${st.n}/${rows.length}</b><span>${esc(t('participants'))}</span></div><div class="stat"><b>${mx}</b><span>${esc(t('maxPoints'))}</span></div><div class="stat"><b>${st.n?st.avg+'%':'—'}</b><span>${esc(t('avg'))}</span></div></div>
+   <div class="row wrap" style="margin-top:12px"><button class="btn grow" data-a="examResults" data-id="${R.p}">${ic('check')}${esc(t('enterResults'))}</button>${taken.length||none.length?`<button class="btn sec sm2" data-a="examImg" data-id="${R.p}">${ic('download')}${esc(t('asImage'))}</button>`:''}${taken.length?`<button class="btn sec sm2" data-a="examXls" data-id="${R.p}">${ic('download')}Excel</button>`:''}<button class="btn sec sm2" data-a="examForm" data-id="${R.p}">${ic('edit')}</button><button class="btn ghost sm2" data-a="examDel" data-id="${R.p}">${ic('trash')}</button></div></div>`;
+  if(!taken.length)h+=`<div class="card sm mut">${esc(t('examHint'))}</div>`;
+  Z.forEach(z=>{
+    const list=taken.filter(x=>zoneOf(x.r.pct)===z[0]);
+    h+=`<div class="card" style="background:${z[2]};border:1.5px solid ${z[3]}"><div class="b" style="color:${z[0]==='w'?'var(--ink)':z[3]};margin-bottom:4px">${esc(z[1])} · ${list.length}</div>${list.length?list.map(x=>`<div class="li"><span class="b mut" style="min-width:26px">${taken.indexOf(x)+1}</span><div class="grow b">${esc(x.s.name)}</div><div class="tc"><b>${x.r.score}/${mx}</b><div class="xs mut">${x.r.pct}%</div></div></div>`).join(''):`<div class="sm mut">—</div>`}</div>`;
+  });
+  if(none.length)h+=`<div class="card"><div class="b" style="margin-bottom:4px">${esc(t('notTaken'))} · ${none.length}</div>${none.map(x=>`<div class="li"><div class="grow">${esc(x.s.name)}</div></div>`).join('')}</div>`;
+  return h;
+};
+
+V.announcements=function(){
+  const list=visibleAnn();const rs=readSet();
+  return (list.length?list.map(a=>`<div class="card ${a.level==='high'?'high':''}"><div class="row sp"><div class="b grow">${esc(a.title)}</div>${a.level==='high'?chip(t('important'),'bad'):''}</div><div class="sm" style="margin:6px 0;white-space:pre-wrap">${esc(a.body)}</div><div class="xs mut">${esc(fmtDate(ymd(new Date(a.ts||Date.now()))))} · ${esc(a.byName||'')} · ${esc(a.target&&a.target!=='all'?gname(a.target):t('allTeachers'))}</div>${(isA()||a.by===meId)?`<div style="margin-top:8px"><button class="btn ghost sm2" data-a="annDel" data-id="${a.id}">${ic('trash')}</button></div>`:''}</div>`).join(''):empty())
+   +((isA()||isH())?`<button class="fab" data-a="annForm" aria-label="${esc(t('newAnn'))}">${ic('plus')}</button>`:'');
+};
+
+V.alerts=function(){
+  const st=alertState();const f=R.filter.af||'all';
+  let list=st.all;if(f==='high')list=list.filter(a=>a.level==='high');else if(f==='unread')list=list.filter(a=>!a.read);
+  sortBy(list,a=>a.date+(a.level==='high'?'1':'0')).reverse();
+  const td=today(),yd=addDays(td,-1);
+  const groups={};list.forEach(a=>{const k=a.date===td?t('today'):a.date===yd?t('yesterday'):t('earlier');(groups[k]=groups[k]||[]).push(a)});
+  const seg=[['all',t('all')],['unread',t('unread')],['high',t('important')]];
+  let h=`<div class="seg">${seg.map(x=>`<button data-a="af" data-v="${x[0]}" class="${f===x[0]?'on':''}">${esc(x[1])}</button>`).join('')}</div>`;
+  if(st.unread)h+=`<button class="btn sec sm2" data-a="readAll" style="margin-bottom:10px">${ic('check')}${esc(t('markAllRead'))}</button>`;
+  if('Notification' in window&&Notification.permission==='default')h+=`<div class="card"><div class="sm">${esc(t('notifNote'))}</div><button class="btn sec sm2" data-a="enableNotif" style="margin-top:8px">${ic('bell')}${esc(t('enableNotif'))}</button></div>`;
+  if(!list.length)return h+empty();
+  Object.keys(groups).forEach(k=>{
+    h+=`<div class="h3">${esc(k)}</div>`+groups[k].map(a=>`<div class="card tap ${a.level==='high'?'high':!a.read?'unread':''}" data-a="alertOpen" data-k="${esc(a.key)}"><div class="row"><div class="av" style="background:${a.level==='high'?'var(--bad-soft)':'var(--pri-soft)'};color:${a.level==='high'?'var(--bad)':'var(--pri)'}">${ic(a.icon)}</div><div class="grow"><div class="${a.read?'':'b'}">${esc(a.text)}</div><div class="xs mut">${esc(fmtDate(a.date))}${a.level==='high'?' · '+esc(t('important')):''}</div></div>${a.read?'':'<span class="chip warn">•</span>'}</div></div>`).join('');
+  });
+  return h;
+};
+
+/* ---- teacher attendance ---- */
+function monthRange(ym){const [y,m]=ym.split('-').map(Number);const from=ym+'-01';const to=ymd(new Date(y,m,0));return{from,to}}
+function tStats(tid,from,to){
+  let days=0,lates=0,mins=0;
+  Object.keys(S.tattend).forEach(k=>{const r=S.tattend[k];if(r.teacherId!==tid||r.date<from||r.date>to)return;days++;if(r.late)lates++;mins+=hoursBetween(r.in,r.out)});
+  return{days,lates,mins};
+}
+V.tAtt=function(){
+  const td=today();const ym=R.filter.tm||td.slice(0,7);const {from,to}=monthRange(ym);
+  const mseg=`<div class="row" style="margin-bottom:12px"><label class="f grow" style="margin:0"><span>${esc(t('month'))}</span><input type="month" data-c="tm" value="${ym}" style="width:100%;min-height:48px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)"></label></div>`;
+  let h='';
+  if(isT()){
+    const rec=S.tattend[meId+'_'+td];
+    if(!rec)h+=`<button class="btn full" data-a="checkIn" style="margin-bottom:12px;min-height:64px;font-size:18px">${ic('clock')}${esc(t('checkIn'))}</button>`;
+    else if(!rec.out)h+=`<div class="card"><div class="b">${esc(t('inAt',{t:rec.in}))}</div><div class="sm ${rec.late?'':'mut'}" style="${rec.late?'color:var(--bad)':''}">${esc(rec.late?t('lateMin',{n:rec.lateMin||0}):t('onTime'))}</div><button class="btn bad full" data-a="checkOut" style="margin-top:12px;min-height:64px;font-size:18px">${esc(t('checkOut'))}</button></div>`;
+    else h+=`<div class="banner ok">${esc(t('dayDone'))}: ${esc(rec.in)}–${esc(rec.out)} (${fmtHM(hoursBetween(rec.in,rec.out))} ${esc(t('hours'))})</div>`;
+    const s=tStats(meId,from,to);
+    h+=mseg+`<div class="row" style="margin-bottom:12px"><div class="stat"><b>${s.days}</b><span>${esc(t('daysPresent'))}</span></div><div class="stat"><b>${fmtHM(s.mins)}</b><span>${esc(t('totalHours'))}</span></div><div class="stat"><b>${s.lates}</b><span>${esc(t('lateCount'))}</span></div></div>`;
+    const recs=sortBy(vals(S.tattend).filter(r=>r.teacherId===meId&&r.date>=from&&r.date<=to),r=>r.date).reverse();
+    h+=`<div class="h3">${esc(t('monthHist'))}</div>`+(recs.length?`<div class="card">${recs.map(r=>`<div class="li"><div class="grow"><div class="b">${esc(fmtDate(r.date))}</div><div class="sm mut">${esc(r.in||'—')} – ${esc(r.out||'…')}</div></div>${r.late?chip(t('lateMin',{n:r.lateMin||0}),'bad'):chip(t('onTime'),'ok')}<b>${r.out?fmtHM(hoursBetween(r.in,r.out)):'—'}</b></div>`).join('')}</div>`:empty());
+    h+=`<div class="xs mut tc">${esc(t('adminEditOnly'))}</div>`;
+    return h;
+  }
+  const date=R.filter.td||td;
+  const tchs=sortBy(vals(S.staff).filter(s=>s.role==='teacher'&&s.active!==false),s=>s.name);
+  h+=`<label class="f"><span>${esc(t('date'))}</span><input type="date" data-c="td" value="${date}"></label>`;
+  h+=`<div class="card">${tchs.map(s=>{const r=S.tattend[s.id+'_'+date];return `<div class="li"><div class="av">${esc(initials(s.name))}</div><div class="grow"><div class="b">${esc(s.name)}</div><div class="sm mut">${r?esc(r.in+' – '+(r.out||'…')):esc(t('notCame'))}</div></div>${r?(r.late?chip(t('lateMin',{n:r.lateMin||0}),'bad'):chip(t('onTime'),'ok')):chip('—','gray')}${isA()?`<button class="btn ghost sm2" data-a="tAttEdit" data-tid="${s.id}" data-date="${date}">${ic('edit')}</button>`:''}</div>`}).join('')||empty()}</div>`;
+  h+=`<div class="h3">${esc(t('month'))}</div>`+mseg;
+  h+=`<div class="tblw"><table><tr><th>${esc(t('teacher'))}</th><th>${esc(t('daysPresent'))}</th><th>${esc(t('totalHours'))}</th><th>${esc(t('lateCount'))}</th></tr>${tchs.map(s=>{const x=tStats(s.id,from,to);return `<tr><td>${esc(s.name)}</td><td>${x.days}</td><td>${fmtHM(x.mins)}</td><td>${x.lates}</td></tr>`}).join('')}</table></div>`;
+  return h;
+};
+
+/* ---- reports ---- */
+const RTYPES=['rp_teacherDaily','rp_teacherAtt','rp_groups','rp_studentAtt','rp_exams','rp_progress','rp_lessons'];
+function datesIn(from,to){const o=[];let d=from,n=0;while(d<=to&&n<93){o.push(d);d=addDays(d,1);n++}return o}
+function lessonStatus(l,date){
+  const rec=sattOf(date,l.id);const td=today();
+  if(rec)return rec.held===false?{s:'missed',reason:rec.reason||''}:{s:'held',reason:''};
+  if(date<td)return{s:'unmarked',reason:''};
+  return{s:'pending',reason:''};
+}
+function buildReport(){
+  const f=R.filter;const type=f.rt||RTYPES[0];
+  const td=today();const from=f.rf||td.slice(0,8)+'01';const to=f.rto||td;
+  const gsel=f.rg||'';const tsel=isT()?meId:(f.rtc||'');
+  const gids=myGroupIds().filter(g=>!gsel||g===gsel);
+  const title=t(type);let head=[],rows=[];
+  const dates=datesIn(from,to);
+  const tchIds=(isT()?[meId]:vals(S.staff).filter(s=>s.role==='teacher'&&(!tsel||s.id===tsel)).map(s=>s.id));
+  const lessonsOf=tid=>vals(S.lessons).filter(l=>l.teacherId===tid||(!l.teacherId&&S.groups[l.groupId]&&S.groups[l.groupId].teacherId===tid));
+  if(type==='rp_teacherDaily'){
+    head=[t('date'),t('teacher'),t('planned'),t('heldN'),t('missedN'),t('notMarked'),t('arrived'),t('left'),t('hasReport')];
+    dates.forEach(d=>tchIds.forEach(tid=>{
+      const ls=lessonsOf(tid).filter(l=>+l.day===dowOf(parseYmd(d)));const rec=S.tattend[tid+'_'+d];const rp=S.reports[tid+'_'+d];
+      if(!ls.length&&!rec&&!rp)return;
+      const st=ls.map(l=>lessonStatus(l,d).s);
+      rows.push([fmtDate(d),tname(tid),ls.length,st.filter(x=>x==='held').length,st.filter(x=>x==='missed').length,st.filter(x=>x==='unmarked').length,rec?rec.in:'—',rec&&rec.out?rec.out:'—',rp?(rp.text||'✓'):'—']);
+    }));
+  }else if(type==='rp_teacherAtt'){
+    head=[t('teacher'),t('daysPresent'),t('totalHours'),t('lateCount')];
+    tchIds.forEach(tid=>{const x=tStats(tid,from,to);rows.push([tname(tid),x.days,fmtHM(x.mins),x.lates])});
+  }else if(type==='rp_groups'){
+    head=[t('group'),t('teacher'),t('students'),t('lessonsWeek'),t('attPct'),t('avgExam')];
+    gids.forEach(g=>{
+      const sts=groupStudents(g);let p=0,n=0;sts.forEach(s=>{const a=studentAtt(s.id,from,to);p+=a.p+a.l;n+=a.n});
+      const ex=vals(S.exams).filter(e=>e.groupId===g&&e.date>=from&&e.date<=to&&Object.keys(e.results||{}).length);
+      const ea=ex.length?Math.round(ex.reduce((s,e)=>s+examStats(e).avg,0)/ex.length):null;
+      rows.push([gname(g),S.groups[g].teacherId?tname(S.groups[g].teacherId):'—',sts.length,vals(S.lessons).filter(l=>l.groupId===g).length,n?pct(p,n)+'%':'—',ea==null?'—':ea+'%']);
+    });
+  }else if(type==='rp_studentAtt'){
+    head=[t('student'),t('group'),t('present2'),t('absent2'),t('late2'),t('attPct')];
+    myStudents().filter(s=>!gsel||s.groupId===gsel).forEach(s=>{const a=studentAtt(s.id,from,to);rows.push([s.name,gname(s.groupId),a.p,a.a,a.l,a.n?a.pct+'%':'—'])});
+  }else if(type==='rp_exams'){
+    head=[t('date'),t('group'),t('examTitle'),t('participants'),t('avg'),t('min'),t('max'),'≥90','70–89','<70'];
+    sortBy(visibleExams().filter(e=>(!gsel||e.groupId===gsel)&&e.date>=from&&e.date<=to),e=>e.date).forEach(e=>{const s=examStats(e);const z=zoneCounts(e);rows.push([fmtDate(e.date),gname(e.groupId),e.title,s.n+'/'+groupStudents(e.groupId).length,s.n?s.avg+'%':'—',s.n?s.min+'%':'—',s.n?s.max+'%':'—',z.g,z.w,z.r])});
+  }else if(type==='rp_progress'){
+    head=[t('student'),t('group'),t('progress'),t('grade'),t('avgExam'),t('attPct')];
+    myStudents().filter(s=>!gsel||s.groupId===gsel).forEach(s=>{const ea=studentExamAvg(s.id),a=studentAtt(s.id,from,to);rows.push([s.name,gname(s.groupId),(+s.progress||0)+'%',s.grade||'—',ea==null?'—':ea+'%',a.n?a.pct+'%':'—'])});
+  }else{
+    head=[t('date'),t('lessons'),t('group'),t('teacher'),t('status'),t('reason')];
+    const ls=myLessons().filter(l=>!gsel||l.groupId===gsel).filter(l=>!tsel||l.teacherId===tsel);
+    dates.forEach(d=>sortBy(ls.filter(l=>+l.day===dowOf(parseYmd(d))),l=>l.start).forEach(l=>{
+      const x=lessonStatus(l,d);if(x.s==='pending'&&d>td)return;
+      rows.push([fmtDate(d),l.start+'–'+l.end,gname(l.groupId),l.teacherId?tname(l.teacherId):'—',x.s==='held'?t('heldN'):x.s==='missed'?t('missedN'):x.s==='unmarked'?t('notMarked'):'…',x.reason]);
+    }));
+  }
+  return{title,head,rows,from,to};
+}
+V.reports=function(){
+  const f=R.filter;const td=today();const type=f.rt||RTYPES[0];
+  let h='';
+  if(isT()){
+    const rp=S.reports[meId+'_'+td];
+    h+=`<div class="card"><div class="row sp"><div class="grow"><b>${esc(t('myDailyReport'))}</b><div class="sm mut">${rp?esc((rp.text||'').slice(0,90)):esc(fmtDate(td))}</div></div><button class="btn sm2" data-a="dailyReport">${ic(rp?'edit':'plus')}${esc(rp?t('edit'):t('add'))}</button></div></div>`;
+  }
+  h+=`<div class="card">${fld(t('reportType'),`<select data-c="rt">${opts(RTYPES.map(x=>[x,t(x)]),type)}</select>`)}
+   <div class="row"><label class="f grow"><span>${esc(t('from'))}</span><input type="date" data-c="rf" value="${f.rf||td.slice(0,8)+'01'}"></label><label class="f grow"><span>${esc(t('to'))}</span><input type="date" data-c="rto" value="${f.rto||td}"></label></div>
+   <div class="row">${['rp_exams','rp_groups','rp_studentAtt','rp_progress','rp_lessons'].includes(type)?`<label class="f grow"><span>${esc(t('group'))}</span><select data-c="rg">${opts(groupOpts(true),f.rg||'',t('all'))}</select></label>`:''}${!isT()&&['rp_teacherDaily','rp_teacherAtt','rp_lessons'].includes(type)?`<label class="f grow"><span>${esc(t('teacher'))}</span><select data-c="rtc">${opts(teacherOpts(),f.rtc||'',t('all'))}</select></label>`:''}</div>
+   <button class="btn full" data-a="rBuild">${ic('report')}${esc(t('build'))}</button></div>`;
+  if(f.rbuilt){
+    const r=buildReport();
+    h+=`<div id="printarea"><div class="h2">${esc(r.title)}</div><div class="sm mut" style="margin-bottom:8px">${esc(fmtDate(r.from))} – ${esc(fmtDate(r.to))}</div>${r.rows.length?`<div class="tblw"><table><tr>${r.head.map(x=>`<th>${esc(x)}</th>`).join('')}</tr>${r.rows.map(row=>`<tr>${row.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`:empty()}</div>
+    <div class="row" style="margin-top:12px"><button class="btn sec grow" data-a="rXls">${ic('download')}${esc(t('exportExcel'))}</button>${FSX.native?'':`<button class="btn sec grow" data-a="rPdf">${ic('print')}${esc(t('exportPdf'))}</button>`}</div>`;
+  }
+  return h;
+};
+
+/* ---- tasks ---- */
+V.tasks=function(){
+  const td=today();const f=R.filter.kf||'all';
+  let list=vals(S.tasks).filter(x=>seeAll()||x.assignee===meId);
+  if(f!=='all')list=list.filter(x=>x.status===f);
+  sortBy(list,x=>(x.status==='done'?'z':'a')+(x.due||'9999'));
+  const seg=[['all',t('all')],['todo',t('st_todo')],['doing',t('st_doing')],['done',t('st_done')]];
+  return `<div class="seg">${seg.map(x=>`<button data-a="kf" data-v="${x[0]}" class="${f===x[0]?'on':''}">${esc(x[1])}</button>`).join('')}</div>`+
+  (list.length?list.map(x=>{const late=x.due&&x.due<td&&x.status!=='done';
+    return `<div class="card ${late?'high':''}"><div class="row sp"><div class="b grow">${esc(x.title)}</div>${late?chip(t('overdue'),'bad'):''}</div>${x.desc?`<div class="sm" style="margin:6px 0;white-space:pre-wrap">${esc(x.desc)}</div>`:''}<div class="xs mut">${x.due?esc(t('due'))+': '+esc(fmtDate(x.due))+' · ':''}${seeAll()?esc(tname(x.assignee))+' · ':''}${esc(t('assignedBy'))}: ${esc(x.byName||'')}</div>
+    <div class="row" style="margin-top:10px"><select data-c="taskSt" data-id="${x.id}" style="flex:1">${opts([['todo',t('st_todo')],['doing',t('st_doing')],['done',t('st_done')]],x.status||'todo')}</select>${(isA()||x.by===meId)?`<button class="btn ghost sm2" data-a="taskDel" data-id="${x.id}">${ic('trash')}</button>`:''}</div></div>`}).join(''):empty())
+  +((isA()||isH())?`<button class="fab" data-a="taskForm" aria-label="${esc(t('newTask'))}">${ic('plus')}</button>`:'');
+};
+
+/* ---- materials ---- */
+const MTYPES=['mt_pdf','mt_word','mt_test','mt_q','mt_plan','mt_extra'];
+V.materials=function(){
+  const gs=new Set(myGroupIds());const gf=R.filter.mg||'';const sf=R.filter.ms||'';
+  let list=vals(S.materials).filter(m=>seeAll()||!m.groupId||gs.has(m.groupId)).filter(m=>(!gf||m.groupId===gf)&&(!sf||m.subject===sf));
+  sortBy(list,m=>m.ts||0).reverse();
+  const subjects=[...new Set(vals(S.materials).map(m=>m.subject).filter(Boolean))].sort();
+  return `<div class="row"><label class="f grow"><span>${esc(t('group'))}</span><select data-c="mg">${opts(groupOpts(true),gf,t('all'))}</select></label><label class="f grow"><span>${esc(t('subject'))}</span><select data-c="ms">${opts(subjects.map(x=>[x,x]),sf,t('allSubjects'))}</select></label></div>`+
+  (list.length?list.map(m=>`<div class="card"><div class="row sp"><div class="b grow">${esc(m.title)}</div>${chip(t(m.mtype||'mt_extra'))}</div><div class="xs mut" style="margin:4px 0">${esc(m.subject||'')}${m.groupId?' · '+esc(gname(m.groupId)):''} · ${esc(m.byName||'')}</div>${m.text?`<div class="sm" style="white-space:pre-wrap">${esc(m.text)}</div>`:''}<div class="row wrap" style="margin-top:8px">${m.link?`<a class="btn sec sm2" href="${esc(m.link)}" target="_blank" rel="noopener">${esc(t('open'))}</a>`:''}${(isA()||m.by===meId)?`<button class="btn ghost sm2" data-a="matDel" data-id="${m.id}">${ic('trash')}</button>`:''}</div></div>`).join(''):empty())+
+  `<button class="fab" data-a="matForm" aria-label="${esc(t('newMaterial'))}">${ic('plus')}</button>`;
+};
+
+/* ---- messages ---- */
+const MGTYPES=['mg_question','mg_problem','mg_suggest','mg_lesson'];
+V.messages=function(){
+  let list=vals(S.messages).filter(m=>seeAll()||m.from===meId);sortBy(list,m=>m.ts||0).reverse();
+  return (list.length?list.map(m=>`<div class="card tap ${m.status==='new'&&seeAll()?'unread':''}" data-a="msgOpen" data-id="${m.id}"><div class="row sp"><div class="b grow">${esc(t(m.type||'mg_question'))}</div>${m.status==='new'?chip(t('newS'),'warn'):m.reply?chip(t('replied'),'ok'):chip('✓','gray')}</div><div class="sm mut">${seeAll()?esc(tname(m.from))+' · ':''}${esc(fmtDate(ymd(new Date(m.ts||Date.now()))))}</div><div class="sm" style="margin-top:6px">${esc((m.text||'').slice(0,140))}</div></div>`).join(''):empty())+
+  (isT()||isH()?`<button class="fab" data-a="msgForm" aria-label="${esc(t('newMsg'))}">${ic('plus')}</button>`:'');
+};
+
+/* ---- admin ---- */
+V.admin=function(){
+  if(!isA())return empty(t('noPerm'));
+  const rs=vals(S.resets).filter(r=>!r.done).length;
+  const items=[['staff','shield',t('staff'),rs],['groups','groups',t('groups')],['students','student',t('students')],['schedule','calendar',t('schedule')],['announcements','announce',t('announcements')],['tAtt','clock',t('tAtt')],['exams','exam',t('exams')],['reports','report',t('reports')],['backup','download',t('backup')],['school','gear',t('school')]];
+  return `<div class="card sm">${esc(t('rightsInfo'))}</div><div class="card">${items.map(x=>`<div class="li" style="cursor:pointer" data-a="${ROOTS.includes(x[0])?'root':'go'}" data-v="${x[0]}"><div class="av">${ic(x[1])}</div><b class="grow">${esc(x[2])}</b>${x[3]?`<span class="chip warn">${x[3]}</span>`:''}<span class="mut">›</span></div>`).join('')}</div>`;
+};
+V.staff=function(){
+  if(!isA())return empty(t('noPerm'));
+  const rs=vals(S.resets).filter(r=>!r.done);
+  let h='';
+  if(rs.length)h+=`<div class="h3">${esc(t('resetReq'))}</div><div class="card">${rs.map(r=>`<div class="li"><div class="grow"><div class="b">${esc(r.login)}</div><div class="xs mut">${esc(fmtDate(ymd(new Date(r.ts||Date.now()))))}</div></div><button class="btn sec sm2" data-a="resetFor" data-id="${r.id}">${esc(t('setPassword'))}</button><button class="btn ghost sm2" data-a="resetDone" data-id="${r.id}">${ic('check')}</button></div>`).join('')}</div>`;
+  const list=sortBy(vals(S.staff),s=>({admin:'1',head:'2',teacher:'3'}[s.role]||'4')+(s.name||''));
+  h+=`<div class="card">${list.map(s=>`<div class="li" style="cursor:pointer" data-a="staffForm" data-id="${s.id}"><div class="av">${esc(initials(s.name))}</div><div class="grow"><div class="b">${esc(s.name)}${s.sample?' <span class="xs mut">(demo)</span>':''}</div><div class="xs mut">ID: ${esc(s.login)}${s.phone?' · '+esc(s.phone):''}</div></div>${s.active===false?chip(t('inactive'),'gray'):''}${chip(roleLabel(s.role),s.role==='admin'?'bad':s.role==='head'?'warn':'')}</div>`).join('')}</div>
+  <button class="fab" data-a="staffForm" aria-label="${esc(t('newStaff'))}">${ic('plus')}</button>`;
+  return h;
+};
+V.backup=function(){
+  if(!isA())return empty(t('noPerm'));
+  return `<div class="card"><button class="btn full" data-a="doBackup">${ic('download')}${esc(t('backupMake'))}</button><div class="gap"></div><button class="btn sec full" data-a="doRestore">${ic('upload')}${esc(t('restore'))}</button><input type="file" id="restoreFile" accept="application/json,.json" style="display:none"></div>`;
+};
+V.school=function(){
+  if(!isA())return empty(t('noPerm'));
+  const s=settings();
+  return `<form class="card" data-f="school">${fld(t('schoolName'),`<input type="text" name="schoolName" value="${esc(s.schoolName||'Future School')}">`)}
+  <div class="row"><label class="f grow"><span>${esc(t('workStart'))}</span><input type="time" name="workStart" value="${esc(s.workStart||'08:00')}"></label><label class="f grow"><span>${esc(t('grace'))}</span><input type="number" name="grace" min="0" max="120" value="${s.grace!=null?s.grace:10}"></label></div>
+  <div class="f"><span>${esc(t('logo'))}</span>${s.logo?`<img alt="" src="${esc(s.logo)}" style="width:72px;height:72px;object-fit:contain;border-radius:12px;background:#fff;border:1px solid var(--line);display:block;margin-bottom:8px">`:''}<input type="file" id="logoFile" accept="image/*"></div>
+  <div class="row"><button class="btn grow" type="submit">${esc(t('save'))}</button>${s.logo?`<button class="btn ghost" type="button" data-a="logoDel">${esc(t('removeLogo'))}</button>`:''}</div></form>
+  <div class="card"><button class="btn sec full" data-a="seedSample" style="margin-bottom:10px">${esc(t('seedSample'))}</button><button class="btn ghost full" data-a="delSample">${esc(t('delSample'))}</button></div>`;
+};
+
+/* ---- settings ---- */
+V.settings=function(){
+  const m=me();const th=localStorage.getItem('fs_theme')||'auto';const q=qGet().length;
+  return `<div class="card"><div class="row"><div class="av" style="width:52px;height:52px">${esc(initials(m.name))}</div><div class="grow"><div class="b">${esc(m.name)}</div><div class="sm mut">ID: ${esc(m.login)} · ${esc(roleLabel(m.role))}</div></div></div></div>
+  <div class="h3">${esc(t('language'))}</div><div class="seg">${LANGS.map(l=>`<button data-a="lang" data-v="${l}" class="${lang===l?'on':''}">${LNAMES[l]}</button>`).join('')}</div>
+  <div class="h3">${esc(t('theme'))}</div><div class="seg">${[['auto',t('themeAuto')],['light',t('themeLight')],['dark',t('themeDark')]].map(x=>`<button data-a="theme" data-v="${x[0]}" class="${th===x[0]?'on':''}">${esc(x[1])}</button>`).join('')}</div>
+  <div class="card"><div class="row sp"><div><b>${esc(t('sync'))}</b><div class="sm mut">${esc(!online?t('offline'):q?t('pending')+': '+q:t('synced'))}</div></div><button class="btn sec sm2" data-a="flush">${ic('refresh')}${esc(t('syncNow'))}</button></div></div>
+  ${('Notification' in window&&Notification.permission==='default')?`<button class="btn sec full" data-a="enableNotif" style="margin-bottom:10px">${ic('bell')}${esc(t('enableNotif'))}</button>`:''}
+  <button class="btn sec full" data-a="go" data-v="pw" style="margin-bottom:10px">${esc(t('changePass'))}</button>
+  <div class="card"><div class="row sp"><div><b>${esc(t('update'))}</b><div class="sm mut">${esc(t('updateHint'))} · ${esc(t('version'))} ${VER}</div></div><button class="btn sec sm2" data-a="reload">${ic('refresh')}</button></div></div>
+  <button class="btn bad full" data-a="logout">${ic('logout')}${esc(t('logout'))}</button>`;
+};
+V.pw=function(forced){
+  return `${forced===true?`<div class="banner warn">${esc(t('mustChangeNow'))}</div>`:''}<form class="card" data-f="pw">${fld(t('curPass'),`<input type="password" name="cur" required autocomplete="current-password">`)}${fld(t('newPass'),`<input type="password" name="n1" required minlength="8" autocomplete="new-password">`)}${fld(t('newPass2'),`<input type="password" name="n2" required minlength="8" autocomplete="new-password">`)}<button class="btn full" type="submit">${esc(t('save'))}</button></form>`;
+};
+
+/* ---- search ---- */
+function searchResults(q){
+  q=(q||'').trim().toLowerCase();if(!q)return '';
+  const st=myStudents().filter(s=>(s.name||'').toLowerCase().includes(q)||(s.code||'').toLowerCase().includes(q)||gname(s.groupId).toLowerCase().includes(q)).slice(0,30);
+  const tc=vals(S.staff).filter(s=>s.role!=='admin'||seeAll()).filter(s=>s.active!==false&&((s.name||'').toLowerCase().includes(q)||String(s.login).toLowerCase().includes(q))).slice(0,30);
+  let h='';
+  if(tc.length)h+=`<div class="h3">${esc(t('teachers'))}</div><div class="card">${tc.map(s=>`<div class="li"><div class="av">${esc(initials(s.name))}</div><div class="grow"><div class="b">${esc(s.name)}</div><div class="xs mut">${esc(roleLabel(s.role))}${seeAll()&&s.phone?' · '+esc(s.phone):''}</div></div>${seeAll()&&s.phone?`<a class="btn sec sm2" href="tel:${esc(s.phone)}">${ic('phone')}</a>`:''}</div>`).join('')}</div>`;
+  if(st.length)h+=`<div class="h3">${esc(t('students'))}</div><div class="card">${st.map(s=>`<div class="li" style="cursor:pointer" data-a="go" data-v="student" data-p="${s.id}"><div class="av">${esc(initials(s.name))}</div><div class="grow"><div class="b">${esc(s.name)}</div><div class="xs mut">${esc(s.code||'')} · ${esc(gname(s.groupId))}</div></div><span class="mut">›</span></div>`).join('')}</div>`;
+  return h||empty();
+}
+V.search=function(){
+  return `<div class="search">${ic('search')}<input type="search" id="sbox" data-i="gq" placeholder="${esc(t('searchPh'))}" value="${esc(R.q||'')}" autocomplete="off"></div><div id="sres">${searchResults(R.q)}</div>`;
+};
+
+/* ---- attendance marking ---- */
+let attDraft=null;
+V.attendance=function(){
+  const p=R.p||{};const date=p.date||today();const d=dowOf(parseYmd(date));
+  let h=`<label class="f"><span>${esc(t('date'))}</span><input type="date" data-c="attDate" value="${date}"></label>`;
+  if(!p.lid){
+    let ls=lessonsOnDay(d).filter(l=>canSeeGroup(l.groupId)&&(!p.gid||l.groupId===p.gid));
+    h+=`<div class="h3">${esc(t('chooseLesson'))}</div>`;
+    h+=ls.length?ls.map(l=>{const done=sattOf(date,l.id);return `<div class="card tap lesson ${done?'done':''}" data-a="attOpen" data-lid="${l.id}" data-date="${date}" data-g="${p.gid||''}"><div class="row"><div class="time">${esc(l.start)}<div class="xs mut">${esc(l.end)}</div></div><div class="grow"><div class="b">${esc(gname(l.groupId))}</div><div class="sm mut">${esc(l.subject||'')}</div></div>${done?chip(done.held===false?t('missedN'):t('heldN'),done.held===false?'bad':'ok'):''}</div></div>`}).join(''):empty(t('noLessonToday'));
+    return h;
+  }
+  const l0=S.lessons[p.lid];if(!l0)return empty();const l=Object.assign({id:p.lid},l0);
+  const key=sattKey(date,l.id);
+  if(!attDraft||attDraft.key!==key){
+    const ex=S.sattend[key];const marks={};
+    groupStudents(l.groupId).forEach(s=>{marks[s.id]=(ex&&ex.marks&&ex.marks[s.id])||'p'});
+    attDraft={key,marks,held:ex?ex.held!==false:true,reason:ex?ex.reason||'':''};
+  }
+  const sts=groupStudents(l.groupId);
+  h+=`<div class="card lesson"><div class="b">${esc(gname(l.groupId))} · ${esc(l.start)}–${esc(l.end)}</div><div class="sm mut">${esc(l.subject||'')} · ${esc(l.teacherId?tname(l.teacherId):'')}</div></div>
+  <div class="seg"><button data-a="attHeld" data-v="1" class="${attDraft.held?'on':''}">${esc(t('lessonHeld'))}</button><button data-a="attHeld" data-v="0" class="${!attDraft.held?'on':''}">${esc(t('lessonNotHeld'))}</button></div>`;
+  if(!attDraft.held)return h+`<label class="f"><span>${esc(t('reason'))}</span><textarea data-i="attReason">${esc(attDraft.reason)}</textarea></label><button class="btn full" data-a="attSave">${esc(t('save'))}</button>`;
+  h+=`<button class="btn sec sm2" data-a="attAllP" style="margin-bottom:10px">${ic('check')}${esc(t('markAll'))}</button>`;
+  h+=sts.length?`<div class="card">${sts.map(s=>{const m=attDraft.marks[s.id];return `<div class="li" style="flex-direction:column;align-items:stretch;gap:8px"><div class="b">${esc(s.name)}</div><div class="att3"><button class="p ${m==='p'?'on':''}" data-a="mark" data-sid="${s.id}" data-v="p">${esc(t('pShort'))}</button><button class="l ${m==='l'?'on':''}" data-a="mark" data-sid="${s.id}" data-v="l">${esc(t('lShort'))}</button><button class="a ${m==='a'?'on':''}" data-a="mark" data-sid="${s.id}" data-v="a">${esc(t('aShort'))}</button></div></div>`}).join('')}</div>`:empty();
+  return h+`<button class="btn full" data-a="attSave">${ic('check')}${esc(t('save'))}</button>`;
+};
+
+/* ---- login / first run / loading ---- */
+function loginScreen(){
+  const first=needSetup;
+  const logo=settings().logo?`<img alt="" src="${esc(settings().logo)}">`:DEFAULT_LOGO;
+  if(first)return `<div class="login"><div class="lg">${logo}</div><h1>${esc(t('app'))}</h1><p>${esc(t('firstRun'))}</p><form data-f="first">${fld(t('name'),`<input type="text" name="name" required>`)}${fld(t('login2'),`<input type="text" name="login" required autocapitalize="off" autocomplete="username" pattern="[A-Za-z0-9_\\-]+" title="${esc(t('loginHint'))}">`)}${fld(t('password'),`<input type="password" name="pw" required minlength="8" autocomplete="new-password">`)}<button class="btn full" type="submit">${esc(t('create'))}</button></form></div>`;
+  return `<div class="login"><div class="lg">${logo}</div><h1>${esc(t('app'))}</h1><p>${esc(settings().schoolName||'Future School')}</p>
+  <form data-f="login">${fld(t('loginId'),`<input type="text" name="login" required autocapitalize="off" autocomplete="username" autocorrect="off">`)}${fld(t('password'),`<input type="password" name="pw" required autocomplete="current-password">`)}<button class="btn full" type="submit">${esc(t('signin'))}</button></form>
+  <div class="tc" style="margin-top:14px"><button class="btn ghost sm2" data-a="forgot">${esc(t('forgot'))}</button></div>
+  <div class="seg" style="justify-content:center;margin-top:18px">${LANGS.map(l=>`<button data-a="lang" data-v="${l}" class="${lang===l?'on':''}">${LNAMES[l]}</button>`).join('')}</div>
+  ${!canWrite?`<div class="banner warn" style="margin-top:12px">${esc(t('readOnly'))}</div>`:''}</div>`;
+}
+
+/* ---- teacher monthly profile (admin & head only) ---- */
+const teacherLessons=tid=>vals(S.lessons).filter(l=>l.teacherId===tid||(!l.teacherId&&S.groups[l.groupId]&&S.groups[l.groupId].teacherId===tid));
+function profData(tid,ym,inc){
+  const {from,to}=monthRange(ym);const td=today();
+  const ls=teacherLessons(tid);const days=[];let held=0,missed=0,unm=0,mins=0;const byG={};
+  datesIn(from,to).forEach(d=>{
+    if(d>td)return;
+    const items=sortBy(ls.filter(l=>+l.day===dowOf(parseYmd(d))),l=>l.start).map(l=>{const st=lessonStatus(l,d);return{l,st:st.s,reason:st.reason,dur:toMin(l.end)-toMin(l.start)}});
+    const rec=S.tattend[tid+'_'+d];
+    if(!items.length&&!rec)return;
+    let dm=0;
+    items.forEach(it=>{
+      const count=it.st==='held'||(inc&&it.st==='unmarked');it.count=count;
+      if(count){dm+=it.dur;held++;const g=byG[it.l.groupId]=byG[it.l.groupId]||{n:0,mins:0};g.n++;g.mins+=it.dur}
+      if(it.st==='missed')missed++;if(it.st==='unmarked')unm++;
+    });
+    mins+=dm;days.push({date:d,items,dm,rec});
+  });
+  const site=tStats(tid,from,to);
+  const gset=new Set(ls.map(l=>l.groupId));Object.keys(S.groups).forEach(g=>{if(S.groups[g].teacherId===tid)gset.add(g)});
+  const exInMonth=vals(S.exams).filter(e=>e.date>=from&&e.date<=to);
+  const groups=[...gset].filter(g=>S.groups[g]).map(g=>{
+    const exs=exInMonth.filter(e=>e.groupId===g);const done=exs.filter(e=>examStats(e).n>0);
+    const avg=done.length?Math.round(done.reduce((s,e)=>s+examStats(e).avg,0)/done.length):null;
+    const studs=groupStudents(g).map(s=>{const ps=exs.map(e=>e.results&&e.results[s.id]).filter(Boolean).map(r=>r.pct);return{s,n:ps.length,avg:ps.length?Math.round(ps.reduce((a,b)=>a+b,0)/ps.length):null}});
+    return{id:g,name:gname(g),lessons:(byG[g]||{n:0}).n,mins:(byG[g]||{mins:0}).mins,exams:exs.length,examsDone:done.length,avg,studs:sortBy(studs.slice(),x=>x.avg==null?-1:x.avg).reverse()};
+  });
+  const myEx=exInMonth.filter(e=>gset.has(e.groupId)&&(e.by===tid||!S.staff[e.by]||S.staff[e.by].role!=='teacher'));
+  return{from,to,days,held,missed,unm,mins,site,groups,examCount:myEx.length};
+}
+V.tprof=function(){
+  if(!(isA()||isH()))return empty(t('noPerm'));
+  const tch=teacherOpts();if(!tch.length)return empty();
+  const f=R.filter;const tid=f.pt&&S.staff[f.pt]?f.pt:tch[0][0];
+  const ym=f.pm||today().slice(0,7);const inc=!!f.pu;
+  const P=profData(tid,ym,inc);
+  let h=`<div class="card">${fld(t('teacher'),`<select data-c="pt">${opts(tch,tid)}</select>`)}<label class="f"><span>${esc(t('month'))}</span><input type="month" data-c="pm" value="${ym}"></label>
+   <label class="row" style="margin-bottom:4px"><input type="checkbox" data-c="pu" ${inc?'checked':''} style="width:22px;height:22px"><span class="sm">${esc(t('incUnmarked'))}</span></label></div>`;
+  h+=`<div id="printarea"><div class="h2">${esc(tname(tid))} · ${esc(ym)}</div>`;
+  const taught=P.days.filter(d=>d.dm>0).length;
+  const stat=(n,l)=>`<div class="stat"><b>${n}</b><span>${esc(l)}</span></div>`;
+  h+=`<div class="row" style="margin-bottom:8px">${stat(taught,t('daysTaught'))}${stat(P.held,t('lessonsHeld'))}${stat(fmtHM(P.mins),t('teachHours'))}</div>
+   <div class="row" style="margin-bottom:12px">${stat(fmtHM(P.site.mins),t('siteHours'))}${stat(P.examCount,t('examsHeld'))}${stat(P.missed+P.unm,t('missedN')+'/'+t('unmarkedN'))}</div>`;
+  h+=`<div class="h3">${esc(t('groups'))}</div>`;
+  h+=P.groups.length?P.groups.map(g=>`<div class="card"><div class="row sp"><div class="b" style="font-size:17px">${esc(g.name)}</div>${g.avg==null?chip('—','gray'):chip(g.avg+'%',zoneOf(g.avg)==='g'?'ok':zoneOf(g.avg)==='w'?'wht':'bad')}</div>
+    <div class="sm mut" style="margin:4px 0 8px">${esc(t('lessonsHeld'))}: <b>${g.lessons}</b> · ${esc(t('teachHours'))}: <b>${fmtHM(g.mins)}</b> · ${esc(t('examsMonth'))}: <b>${g.exams}</b></div>
+    ${g.avg!=null?`<div class="sm">${esc(t('groupMonthScore'))}: <b>${g.avg}%</b></div>${bar(g.avg)}`:`<div class="sm mut">${esc(t('noExamsMonth'))}</div>`}
+    ${g.examsDone?`<div class="xs mut" style="margin:10px 0 4px">${esc(t('studentMonthAvg'))}</div>${g.studs.map(x=>`<div class="li" style="padding:7px 0"><div class="grow">${esc(x.s.name)}</div>${x.avg==null?'<span class="mut">—</span>':chip(x.avg+'%',zoneOf(x.avg)==='g'?'ok':zoneOf(x.avg)==='w'?'wht':'bad')}</div>`).join('')}`:''}</div>`).join(''):empty();
+  h+=`<div class="h3">${esc(t('dayList'))}</div>`;
+  h+=P.days.length?P.days.slice().reverse().map(d=>`<div class="card"><div class="row sp"><b>${esc(fmtDate(d.date))} · ${esc(dayName(dowOf(parseYmd(d.date))))}</b>${chip(t('total2')+': '+fmtHM(d.dm),d.dm?'ok':'gray')}</div>
+    ${d.items.map(it=>`<div class="row sm" style="margin-top:6px"><span class="time" style="min-width:104px;font-weight:700">${esc(it.l.start)}–${esc(it.l.end)}</span><span class="grow">${esc(gname(it.l.groupId))}</span>${it.st==='held'?chip(fmtHM(it.dur),'ok'):it.st==='missed'?chip(t('missedN'),'bad'):it.st==='unmarked'?chip(t('unmarkedN'),inc?'warn':'gray'):chip('…','gray')}</div>${it.reason?`<div class="xs mut">${esc(it.reason)}</div>`:''}`).join('')}
+    ${d.rec?`<div class="xs mut" style="margin-top:8px">${esc(t('onSite'))}: ${esc(d.rec.in)}–${esc(d.rec.out||'…')}${d.rec.out?' ('+fmtHM(hoursBetween(d.rec.in,d.rec.out))+')':''}${d.rec.late?' · '+esc(t('lateMin',{n:d.rec.lateMin||0})):''}</div>`:''}</div>`).join(''):empty();
+  h+=`</div><div class="row" style="margin-top:12px"><button class="btn sec grow" data-a="tprofXls">${ic('download')}${esc(t('exportExcel'))}</button>${FSX.native?'':`<button class="btn sec grow" data-a="rPdf">${ic('print')}${esc(t('exportPdf'))}</button>`}</div>`;
+  return h;
+};
+/* ================= extra strings ================= */
+Object.assign(DICT,{
+groupNotEmpty:['Гурӯҳ хонанда дорад. Аввал хонандагонро ба гурӯҳи дигар гузаронед ё нест кунед.','В группе есть ученики. Сначала переведите или удалите их.','The group has students. Move or delete them first.'],
+passCopy:['Маълумоти воридшавӣ','Данные для входа','Sign-in details'],
+scoreOf:['Хол аз {m}','Балл из {m}','Score of {m}'],
+noAccount:['Ҳисоби шумо дар система танзим нашудааст. Ба маъмурият муроҷиат кунед.','Ваш аккаунт не настроен. Обратитесь к администратору.','Your account is not set up. Contact the administrator.'],
+loginHint:['Танҳо ҳарфҳои лотинӣ, рақамҳо ва _ -','Только латиница, цифры и _ -','Latin letters, digits and _ - only'],
+cfgErr:['Танзимоти Firebase ворид нашудааст. Файли firebase-config.js-ро пур кунед.','Настройки Firebase не заполнены. Заполните firebase-config.js.','Firebase is not configured. Fill in firebase-config.js.'],
+setupFail:['Танзимот анҷом наёфт. Интернетро ва қоидаҳои Firestore-ро санҷед.','Не удалось. Проверьте интернет и правила Firestore.','Setup failed. Check internet and Firestore rules.'],
+seedSample:['Илова кардани маълумоти намунавӣ','Добавить демо-данные','Add sample data'],
+delSample:['Нест кардани маълумоти намунавӣ','Удалить демо-данные','Delete sample data'],
+sampleAdded:['Маълумоти намунавӣ илова шуд','Демо-данные добавлены','Sample data added'],
+sampleDeleted:['Маълумоти намунавӣ нест шуд','Демо-данные удалены','Sample data deleted'],
+retry:['Аз нав кӯшиш кардан','Повторить','Retry'],
+noAnswer:['Ҷавоб нест','Нет ответа','No answer'],
+sentTo:['Фиристода шуд','Отправлено','Sent'],
+imgBad:['Расм кушода нашуд','Не удалось открыть изображение','Could not open image'],
+dlFail:['Захира нашуд','Не удалось сохранить','Could not save'],
+dlNone:['Захира дар ин ҷо дастнорас аст','Сохранение здесь недоступно','Saving is unavailable here'],
+});
+
+/* ================= render ================= */
+let rT=null,pendingR=false;
+function applyTheme(){
+  const th=(()=>{try{return localStorage.getItem('fs_theme')||'auto'}catch(e){return 'auto'}})();
+  const r=document.documentElement;
+  if(th==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',th);
+  r.lang=lang;
+}
+function textFocused(){
+  const a=document.activeElement;if(!a||!$('#app').contains(a))return false;
+  if(a.tagName==='TEXTAREA')return true;
+  if(a.tagName==='INPUT')return ['text','search','password','tel','number','url','email'].includes(a.type);
+  return false;
+}
+function render(){clearTimeout(rT);rT=setTimeout(doRender,30)}
+function doRender(){
+  applyTheme();
+  if(textFocused()){pendingR=true;return}
+  pendingR=false;
+  const app=$('#app');let html='';
+  const box=(inner)=>`<div class="login"><div class="lg">${settings().logo?`<img alt="" src="${esc(settings().logo)}">`:DEFAULT_LOGO}</div><h1>${esc(t('app'))}</h1>${inner}</div>`;
+  if(!window.FSX||!FSX.configured)html=box(`<div class="banner bad">${esc(t('cfgErr'))}</div>`);
+  else if(!authReady)html=box(`<p>${esc(t('loading'))}</p>`);
+  else if(!AUTH)html=loginScreen();
+  else if(!meId||!S.staff[meId]){
+    html=waited?box(`<div class="banner bad">${esc(t('noAccount'))}</div><button class="btn full" data-a="reload">${esc(t('retry'))}</button><div class="gap"></div><button class="btn ghost full" data-a="logout">${esc(t('logout'))}</button>`):box(`<p>${esc(t('loading'))}</p>`);
+  }
+  else if(me().mustChange){html=`<header class="top"><div class="logo">${DEFAULT_LOGO}</div><h1>${esc(t('changePass'))}</h1><button class="ib" data-a="logout" aria-label="${esc(t('logout'))}">${ic('logout')}</button></header><main>${V.pw(true)}</main>`}
+  else html=shell();
+  app.innerHTML=html;
+}
+document.addEventListener('focusout',()=>{setTimeout(()=>{if(pendingR&&!textFocused())render()},60)});
+
+/* ================= events ================= */
+const ACT={},FORM={},CHG={},INP={};
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-a]');if(!el)return;
+  const f=ACT[el.dataset.a];if(f){e.preventDefault();Promise.resolve(f(el.dataset,el)).catch(err=>console.error(err))}
+});
+document.addEventListener('submit',e=>{
+  const f=e.target.closest('[data-f]');if(!f)return;e.preventDefault();
+  const h=FORM[f.dataset.f];if(h)Promise.resolve(h(new FormData(f),f)).catch(err=>console.error(err));
+});
+document.addEventListener('change',e=>{
+  const el=e.target.closest('[data-c]');if(!el)return;
+  const h=CHG[el.dataset.c];if(h)Promise.resolve(h(el.value,el)).catch(err=>console.error(err));
+});
+document.addEventListener('input',e=>{
+  const el=e.target.closest('[data-i]');if(!el)return;
+  const h=INP[el.dataset.i];if(h)h(el.value,el);
+});
+// modal backdrop
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal'&&!$('#modal').querySelector('[data-a=cfYes]'))closeModal()});
+
+/* ---- navigation ---- */
+ACT.go=d=>{ if(d.v==='attendance')return openAtt({date:today()}); go(d.v,d.p) };
+ACT.root=d=>goRoot(d.v);
+ACT.back=()=>goBack();
+ACT.tab=d=>{R.tab=d.v;render()};
+ACT.day=d=>{R.day=+d.v;render()};
+ACT.sgf=d=>{R.filter.sg=d.v;render()};
+ACT.ef=d=>{R.filter.ef=d.v;render()};
+ACT.af=d=>{R.filter.af=d.v;render()};
+ACT.kf=d=>{R.filter.kf=d.v;render()};
+ACT.flush=()=>flush();
+ACT.reload=()=>location.reload();
+ACT.lang=d=>{lang=d.v;try{localStorage.setItem('fs_lang',lang)}catch(e){}render()};
+ACT.theme=d=>{try{localStorage.setItem('fs_theme',d.v)}catch(e){}render()};
+ACT.logout=()=>logout();
+ACT.closeModal=()=>closeModal();
+ACT.cfYes=()=>window.__cf&&window.__cf(true);
+ACT.cfNo=()=>window.__cf&&window.__cf(false);
+ACT.enableNotif=async()=>{try{await Notification.requestPermission()}catch(e){}render()};
+CHG.rt=v=>{R.filter.rt=v;render()};CHG.rf=v=>{R.filter.rf=v;render()};CHG.rto=v=>{R.filter.rto=v;render()};
+CHG.rg=v=>{R.filter.rg=v;render()};CHG.rtc=v=>{R.filter.rtc=v;render()};
+CHG.tm=v=>{R.filter.tm=v;render()};CHG.td=v=>{R.filter.td=v;render()};
+CHG.pt=v=>{R.filter.pt=v;render()};CHG.pm=v=>{R.filter.pm=v;render()};CHG.pu=(v,el)=>{R.filter.pu=el.checked;render()};
+CHG.mg=v=>{R.filter.mg=v;render()};CHG.ms=v=>{R.filter.ms=v;render()};
+CHG.taskSt=(v,el)=>W('update','tasks',el.dataset.id,{status:v});
+CHG.attDate=v=>{R.p={date:v,gid:(R.p||{}).gid};attDraft=null;render()};
+ACT.rBuild=()=>{R.filter.rbuilt=true;render()};
+function keepFocusRender(sel,html){
+  const v=$('#view');v.innerHTML=html;const n=$(sel);
+  if(n){n.focus();try{const l=n.value.length;n.setSelectionRange(l,l)}catch(e){}}
+}
+INP.sq=v=>{R.filter.sq=v;keepFocusRender('[data-i=sq]',V.students())};
+INP.gq=v=>{R.q=v;const r=$('#sres');if(r)r.innerHTML=searchResults(v)};
+INP.attReason=v=>{if(attDraft)attDraft.reason=v};
+
+/* ---- alerts ---- */
+ACT.alertOpen=d=>{
+  const rs=readSet();rs.add(d.k);readSave(rs);
+  const a=buildAlerts().find(x=>x.key===d.k);
+  if(!a){render();return}
+  if(a.route==='attendance'&&a.p)return openAtt({lid:a.p.lid,date:a.p.date});
+  if(a.route==='examView'&&a.p)return go('examView',a.p.id);
+  if(ROOTS.includes(a.route))return goRoot(a.route);
+  go(a.route);
+};
+ACT.readAll=()=>{const rs=readSet();buildAlerts().forEach(a=>rs.add(a.key));readSave(rs);render()};
+const notified=new Set();
+function tick(){
+  if(!meId)return;
+  render();
+  if('Notification' in window&&Notification.permission==='granted'){
+    buildAlerts().filter(a=>a.level==='high'&&!notified.has(a.key)&&!readSet().has(a.key)&&/^(les-|un-|ex-|ci-)/.test(a.key)).forEach(a=>{notified.add(a.key);try{new Notification(t('app'),{body:a.text})}catch(e){}});
+  }
+}
+
+/* ---- teacher attendance ---- */
+ACT.checkIn=async()=>{
+  const td=today();const ex=S.tattend[meId+'_'+td];
+  if(ex&&ex.in){toast(t('alreadyIn'));return}
+  const now=nowHM();const base=firstLessonStart(meId,td)||workStart();
+  const diff=toMin(now)-toMin(base);const late=diff>graceMin();
+  const r=await W('set','tattend',meId+'_'+td,{teacherId:meId,date:td,in:now,out:null,late,lateMin:late?diff:0,ts:Date.now()});
+  if(r!==null)toast(t('inAt',{t:now}));
+};
+ACT.checkOut=async()=>{
+  const td=today();const ex=S.tattend[meId+'_'+td];
+  if(!ex||!ex.in){toast(t('noCheckIn'));return}
+  if(ex.out)return;
+  await W('update','tattend',meId+'_'+td,{out:nowHM()});
+};
+ACT.tAttEdit=d=>{
+  const key=d.tid+'_'+d.date;const r=S.tattend[key]||{};
+  openModal(t('editTime')+' · '+tname(d.tid),`<form id="mf" data-f="tatt"><input type="hidden" name="tid" value="${esc(d.tid)}"><input type="hidden" name="date" value="${esc(d.date)}"><div class="row"><label class="f grow"><span>${esc(t('arrived'))}</span><input type="time" name="in" value="${esc(r.in||'')}"></label><label class="f grow"><span>${esc(t('left'))}</span><input type="time" name="out" value="${esc(r.out||'')}"></label></div></form>`,
+   `${r.in?`<button class="btn ghost" data-a="tAttDel" data-key="${esc(key)}">${ic('trash')}</button>`:''}<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+ACT.tAttDel=async d=>{if(await confirmBox(t('confirmDel'),t('del'))){await W('delete','tattend',d.key);closeModal()}};
+FORM.tatt=async fd=>{
+  const tid=fd.get('tid'),date=fd.get('date'),inn=fd.get('in'),out=fd.get('out');
+  if(!inn){toast(t('required'));return}
+  const base=firstLessonStart(tid,date)||workStart();const diff=toMin(inn)-toMin(base);const late=diff>graceMin();
+  await W('set','tattend',tid+'_'+date,{teacherId:tid,date,in:inn,out:out||null,late,lateMin:late?diff:0,edited:true,ts:Date.now()});
+  closeModal();
+};
+
+/* ---- student attendance marking ---- */
+function openAtt(p){if(R.v==='attendance'){R.p=p;attDraft=null;render()}else{attDraft=null;go('attendance',p)}}
+ACT.attOpen=d=>openAtt({lid:d.lid||null,date:d.date||today(),gid:d.g||null});
+ACT.attHeld=d=>{if(attDraft){attDraft.held=d.v==='1';render()}};
+ACT.attAllP=()=>{if(attDraft){Object.keys(attDraft.marks).forEach(k=>attDraft.marks[k]='p');render()}};
+ACT.mark=d=>{if(attDraft){attDraft.marks[d.sid]=d.v;render()}};
+ACT.attSave=async()=>{
+  const p=R.p;const l0=S.lessons[p.lid];if(!l0||!attDraft)return;const l=Object.assign({id:p.lid},l0);
+  const date=p.date||today();
+  const r=await W('set','sattend',attDraft.key,{date,lessonId:l.id,groupId:l.groupId,teacherId:l.teacherId||meId,held:attDraft.held,reason:attDraft.held?'':attDraft.reason,marks:attDraft.held?attDraft.marks:{},by:meId,ts:Date.now()});
+  if(r!==null){toast(t('attSaved'));attDraft=null;goBack()}
+};
+
+/* ---- groups ---- */
+ACT.groupForm=d=>{
+  const g=d.id?S.groups[d.id]:{};
+  openModal(d.id?t('editGroup'):t('newGroup'),`<form id="mf" data-f="group"><input type="hidden" name="id" value="${esc(d.id||'')}">${fld(t('groupName'),`<input type="text" name="name" required value="${esc(g.name||'')}">`)}${fld(t('subject'),`<input type="text" name="subject" value="${esc(g.subject||'')}">`)}${fld(t('teacher'),`<select name="teacherId">${opts(teacherOpts(),g.teacherId||'',t('noTeacher'))}</select>`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.group=async fd=>{
+  const id=fd.get('id')||uid();const name=String(fd.get('name')).trim();if(!name){toast(t('required'));return}
+  const old=S.groups[id]||{};
+  const r=await W('set','groups',id,Object.assign({},clone(old),{name,subject:String(fd.get('subject')||'').trim(),teacherId:fd.get('teacherId')||'',created:old.created||Date.now()}));
+  if(r!==null){closeModal();toast(t('saved'))}
+};
+ACT.groupDel=async d=>{
+  if(groupStudents(d.id).length){toast(t('groupNotEmpty'));return}
+  if(!await confirmBox(t('confirmDel'),t('del')))return;
+  await W('delete','groups',d.id);goBack();
+};
+
+/* ---- students ---- */
+function nextCode(){const n=Object.keys(S.students).length+1;let c;let i=n;do{c='FS-'+String(i).padStart(3,'0');i++}while(vals(S.students).some(s=>s.code===c));return c}
+ACT.studentForm=d=>{
+  const s=d.id?S.students[d.id]:{};const gid=s.groupId||d.g||R.filter.sg||'';
+  openModal(d.id?t('editStudent'):t('newStudent'),`<form id="mf" data-f="student"><input type="hidden" name="id" value="${esc(d.id||'')}">${fld(t('name'),`<input type="text" name="name" required value="${esc(s.name||'')}">`)}${fld(t('code'),`<input type="text" name="code" value="${esc(s.code||nextCode())}">`)}${fld(t('group'),`<select name="groupId" required>${opts(groupOpts(false),gid,t('choose'))}</select>`)}${fld(t('parentPhone'),`<input type="tel" name="parentPhone" value="${esc(s.parentPhone||'')}">`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.student=async fd=>{
+  const id=fd.get('id')||uid();const name=String(fd.get('name')).trim();const gid=fd.get('groupId');
+  if(!name||!gid){toast(t('required'));return}
+  const old=clone(S.students[id]||{});
+  const r=await W('set','students',id,Object.assign(old,{name,code:String(fd.get('code')||'').trim()||nextCode(),groupId:gid,parentPhone:String(fd.get('parentPhone')||'').trim()}));
+  if(r!==null){closeModal();toast(t('saved'))}
+};
+ACT.studentDel=async d=>{if(!await confirmBox(t('confirmDel'),t('del')))return;await W('delete','students',d.id);goBack()};
+ACT.studentProg=d=>{
+  const s=S.students[d.id];
+  openModal(t('progress')+' · '+s.name,`<form id="mf" data-f="prog"><input type="hidden" name="id" value="${esc(d.id)}">${fld(t('progress')+' (0–100%)',`<input type="number" name="progress" min="0" max="100" value="${+s.progress||0}">`)}${fld(t('grade'),`<input type="text" name="grade" value="${esc(s.grade||'')}">`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.prog=async fd=>{
+  const v=Math.max(0,Math.min(100,+fd.get('progress')||0));
+  await W('update','students',fd.get('id'),{progress:v,grade:String(fd.get('grade')||'').trim()});closeModal();
+};
+ACT.noteAdd=d=>{
+  openModal(t('addNote'),`<form id="mf" data-f="note"><input type="hidden" name="id" value="${esc(d.id)}"><label class="f"><span>${esc(t('note'))}</span><textarea name="text" required></textarea></label></form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.note=async fd=>{
+  const id=fd.get('id');const text=String(fd.get('text')).trim();if(!text)return;
+  const s=S.students[id]||{};const notes=Array.isArray(s.notes)?clone(s.notes):[];
+  notes.push({text,ts:Date.now(),by:meId,byName:me().name});
+  await W('update','students',id,{notes});closeModal();
+};
+
+/* ---- lessons ---- */
+ACT.lessonForm=d=>{
+  const l=d.id?S.lessons[d.id]:{day:R.day||dowOf(new Date()),start:'09:00',end:'10:30'};
+  openModal(d.id?t('editLesson'):t('newLesson'),`<form id="mf" data-f="lesson"><input type="hidden" name="id" value="${esc(d.id||'')}">${fld(t('dayOfWeek'),`<select name="day">${opts([1,2,3,4,5,6,7].map(x=>[x,dayName(x)]),l.day)}</select>`)}<div class="row"><label class="f grow"><span>${esc(t('start'))}</span><input type="time" name="start" required value="${esc(l.start)}"></label><label class="f grow"><span>${esc(t('end'))}</span><input type="time" name="end" required value="${esc(l.end)}"></label></div>${fld(t('group'),`<select name="groupId" required>${opts(groupOpts(false),l.groupId||'',t('choose'))}</select>`)}${fld(t('teacher'),`<select name="teacherId" required>${opts(teacherOpts(),l.teacherId||(l.groupId&&S.groups[l.groupId]?S.groups[l.groupId].teacherId:'')||'',t('choose'))}</select>`)}${fld(t('subject'),`<input type="text" name="subject" value="${esc(l.subject||(l.groupId&&S.groups[l.groupId]?S.groups[l.groupId].subject:'')||'')}">`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.lesson=async fd=>{
+  const id=fd.get('id')||uid();const start=fd.get('start'),end=fd.get('end');
+  if(toMin(end)<=toMin(start)){toast(t('badTime'));return}
+  const old=S.lessons[id]||{};
+  const l={day:+fd.get('day'),start,end,groupId:fd.get('groupId'),teacherId:fd.get('teacherId'),subject:String(fd.get('subject')||'').trim()};
+  if(!l.groupId||!l.teacherId){toast(t('required'));return}
+  const r=await W('set','lessons',id,l);
+  if(r===null)return;
+  const txt=t('lessonChanged')+': '+gname(l.groupId)+' · '+dayName(l.day)+' '+l.start+'–'+l.end;
+  const to=new Set([l.teacherId]);if(old.teacherId&&old.teacherId!==l.teacherId)to.add(old.teacherId);
+  for(const x of to)await W('set','notices',uid(),{text:txt,to:x,level:'high',ts:Date.now()});
+  closeModal();
+  toast(conflictsOf(Object.assign({id},l)).length?t('conflictWarn'):t('saved'));
+};
+ACT.lessonDel=async d=>{
+  if(!await confirmBox(t('confirmDel'),t('del')))return;
+  const l=S.lessons[d.id];
+  await W('delete','lessons',d.id);
+  if(l&&l.teacherId)await W('set','notices',uid(),{text:t('lessonChanged')+': '+gname(l.groupId)+' · '+dayName(l.day)+' '+l.start,to:l.teacherId,level:'high',ts:Date.now()});
+};
+
+/* ---- exams (paper exam, results entered by teacher) ---- */
+ACT.examForm=d=>{
+  const e=d.id?S.exams[d.id]:{groupId:d.g||R.filter.sg||(myGroupIds()[0]||''),date:today(),title:'',max:100};
+  openModal(d.id?t('editExam'):t('newExam'),`<form id="mf" data-f="exam"><div class="banner ok">${esc(t('examHint'))}</div><input type="hidden" name="id" value="${esc(d.id||'')}">${fld(t('examTitle'),`<input type="text" name="title" required value="${esc(e.title)}">`)}${fld(t('group'),`<select name="groupId" required>${opts(groupOpts(true),e.groupId,t('choose'))}</select>`)}<div class="row"><label class="f grow"><span>${esc(t('date'))}</span><input type="date" name="date" required value="${esc(e.date)}"></label><label class="f grow"><span>${esc(t('maxScore'))}</span><input type="number" name="max" min="1" step="1" required value="${d.id?maxOf(e):100}"></label></div></form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.exam=async fd=>{
+  const id=fd.get('id')||uid();const title=String(fd.get('title')).trim();const gid=fd.get('groupId');const max=+fd.get('max')||100;
+  if(!title||!gid){toast(t('required'));return}
+  const old=clone(S.exams[id]||{});
+  const doc=Object.assign(old,{groupId:gid,date:fd.get('date'),title,type:'written',max,by:old.by||meId,byName:old.byName||me().name,created:old.created||Date.now()});
+  delete doc.questions;
+  doc.results=doc.results||{};
+  Object.keys(doc.results).forEach(k=>{const r=doc.results[k];r.max=max;r.pct=Math.round(r.score*100/max)});
+  const r=await W('set','exams',id,doc);
+  if(r!==null){closeModal();toast(t('saved'))}
+};
+ACT.examDel=async d=>{if(!await confirmBox(t('confirmDel'),t('del')))return;await W('delete','exams',d.id);goBack()};
+ACT.examResults=d=>{
+  const e=S.exams[d.id];const mx=maxOf(e);const sts=groupStudents(e.groupId);
+  const body=sts.length?sts.map(s=>{const r=e.results&&e.results[s.id];return `<label class="li" style="gap:10px"><span class="grow b">${esc(s.name)}</span><input type="number" inputmode="decimal" name="r_${esc(s.id)}" min="0" max="${mx}" step="any" value="${r?r.score:''}" placeholder="0–${mx}" style="width:110px"></label>`}).join(''):empty();
+  openModal(e.title+' · '+t('scoreOf',{m:mx}),`<form id="mf" data-f="run"><input type="hidden" name="eid" value="${esc(d.id)}">${body}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.run=async fd=>{
+  const eid=fd.get('eid');const e=S.exams[eid];const mx=maxOf(e);const res={};let n=0;
+  groupStudents(e.groupId).forEach(s=>{
+    const v=fd.get('r_'+s.id);if(v===null||String(v).trim()==='')return;
+    const sc=Math.max(0,Math.min(mx,Math.round((+v||0)*100)/100));
+    res[s.id]={score:sc,max:mx,pct:Math.round(sc*100/mx),ts:Date.now(),by:meId};n++;
+  });
+  if(!n){toast(t('required'));return}
+  const r=await W('update','exams',eid,{results:res});
+  if(r!==null){closeModal();toast(t('saved')+': '+n)}
+};
+
+/* ---- announcements ---- */
+ACT.annForm=()=>{
+  openModal(t('newAnn'),`<form id="mf" data-f="ann">${fld(t('title'),`<input type="text" name="title" required>`)}${fld(t('text'),`<textarea name="body" required></textarea>`)}${fld(t('target'),`<select name="target"><option value="all">${esc(t('allTeachers'))}</option>${opts(groupOpts(false),'')}</select>`)}${fld(t('importance'),`<select name="level">${opts([['normal',t('normal')],['high',t('important')]],'normal')}</select>`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('send'))}</button>`);
+};
+FORM.ann=async fd=>{
+  const r=await W('set','announcements',uid(),{title:String(fd.get('title')).trim(),body:String(fd.get('body')).trim(),target:fd.get('target')||'all',level:fd.get('level')||'normal',ts:Date.now(),by:meId,byName:me().name});
+  if(r!==null){closeModal();toast(t('sentTo'))}
+};
+ACT.annDel=async d=>{if(await confirmBox(t('confirmDel'),t('del')))await W('delete','announcements',d.id)};
+
+/* ---- tasks ---- */
+ACT.taskForm=()=>{
+  openModal(t('newTask'),`<form id="mf" data-f="task">${fld(t('title'),`<input type="text" name="title" required>`)}${fld(t('desc'),`<textarea name="desc"></textarea>`)}${fld(t('due'),`<input type="date" name="due">`)}${fld(t('assignee'),`<select name="assignee" required><option value="__all">${esc(t('allTeachers'))}</option>${opts(teacherOpts(),'')}</select>`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.task=async fd=>{
+  const base={title:String(fd.get('title')).trim(),desc:String(fd.get('desc')||'').trim(),due:fd.get('due')||'',status:'todo',by:meId,byName:me().name,ts:Date.now(),createdDate:today()};
+  const a=fd.get('assignee');const ids=a==='__all'?teacherOpts().map(x=>x[0]):[a];
+  for(const id of ids)await W('set','tasks',uid(),Object.assign({assignee:id},base));
+  closeModal();toast(t('saved'));
+};
+ACT.taskDel=async d=>{if(await confirmBox(t('confirmDel'),t('del')))await W('delete','tasks',d.id)};
+
+/* ---- materials ---- */
+ACT.matForm=()=>{
+  openModal(t('newMaterial'),`<form id="mf" data-f="mat"><div class="banner ok">${esc(t('matHint'))}</div>${fld(t('title'),`<input type="text" name="title" required>`)}${fld(t('matType'),`<select name="mtype">${opts(MTYPES.map(x=>[x,t(x)]),'mt_pdf')}</select>`)}${fld(t('subject'),`<input type="text" name="subject">`)}${fld(t('group'),`<select name="groupId">${opts(groupOpts(true),'',t('all'))}</select>`)}${fld(t('link'),`<input type="url" name="link" placeholder="https://">`)}${fld(t('text'),`<textarea name="text"></textarea>`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.mat=async fd=>{
+  const r=await W('set','materials',uid(),{title:String(fd.get('title')).trim(),mtype:fd.get('mtype'),subject:String(fd.get('subject')||'').trim(),groupId:fd.get('groupId')||'',link:String(fd.get('link')||'').trim(),text:String(fd.get('text')||'').trim(),by:meId,byName:me().name,ts:Date.now()});
+  if(r!==null){closeModal();toast(t('saved'))}
+};
+ACT.matDel=async d=>{if(await confirmBox(t('confirmDel'),t('del')))await W('delete','materials',d.id)};
+
+/* ---- messages ---- */
+ACT.msgForm=()=>{
+  openModal(t('newMsg'),`<form id="mf" data-f="msg">${fld(t('msgType'),`<select name="type">${opts(MGTYPES.map(x=>[x,t(x)]),'mg_question')}</select>`)}${fld(t('text'),`<textarea name="text" required rows="5"></textarea>`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('send'))}</button>`);
+};
+FORM.msg=async fd=>{
+  const r=await W('set','messages',uid(),{from:meId,type:fd.get('type'),text:String(fd.get('text')).trim(),ts:Date.now(),status:'new'});
+  if(r!==null){closeModal();toast(t('sent'))}
+};
+ACT.msgOpen=async d=>{
+  const m=S.messages[d.id];if(!m)return;
+  if(seeAll()&&m.status==='new')W('update','messages',d.id,{status:'read'});
+  const rep=m.reply?`<div class="card" style="background:var(--pri-soft)"><div class="xs mut">${esc(t('reply'))} · ${esc(m.reply.byName||'')} · ${esc(fmtDate(ymd(new Date(m.reply.ts))))}</div><div class="sm" style="white-space:pre-wrap">${esc(m.reply.text)}</div></div>`:'';
+  const form=seeAll()?`<form id="mf" data-f="reply"><input type="hidden" name="id" value="${esc(d.id)}"><label class="f"><span>${esc(t('reply'))}</span><textarea name="text" required></textarea></label></form>`:'';
+  openModal(t(m.type||'mg_question'),`<div class="xs mut">${esc(tname(m.from))} · ${esc(fmtDate(ymd(new Date(m.ts||Date.now()))))}</div><div class="card" style="white-space:pre-wrap">${esc(m.text)}</div>${rep}${form}`,seeAll()?`<button class="btn ghost" data-a="msgClose" data-id="${esc(d.id)}">${esc(t('closeMsg'))}</button><button class="btn" type="submit" form="mf">${esc(t('send'))}</button>`:'');
+};
+FORM.reply=async fd=>{
+  const r=await W('update','messages',fd.get('id'),{reply:{text:String(fd.get('text')).trim(),by:meId,byName:me().name,ts:Date.now()},status:'replied'});
+  if(r!==null){closeModal();toast(t('sent'))}
+};
+ACT.msgClose=async d=>{await W('update','messages',d.id,{status:'closed'});closeModal()};
+
+/* ---- daily report ---- */
+ACT.dailyReport=()=>{
+  const td=today();const r=S.reports[meId+'_'+td]||{};
+  openModal(t('myDailyReport'),`<form id="mf" data-f="daily"><label class="f"><span>${esc(t('reportText'))}</span><textarea name="text" rows="7">${esc(r.text||'')}</textarea></label></form>`,`<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+FORM.daily=async fd=>{
+  const td=today();
+  const r=await W('set','reports',meId+'_'+td,{teacherId:meId,date:td,text:String(fd.get('text')||'').trim()||'✓',ts:Date.now()});
+  if(r!==null){closeModal();toast(t('reportSaved'))}
+};
+
+/* ---- login / password / staff accounts (Firebase Auth) ---- */
+FORM.login=async fd=>{await doLogin(fd.get('login'),String(fd.get('pw')||''))};
+FORM.first=async fd=>{
+  const login=String(fd.get('login')).trim();const pw=String(fd.get('pw'));const name=String(fd.get('name')).trim();
+  const key=loginKey(login);
+  if(pw.length<8){toast(t('passShort'));return}
+  if(!key||!name){toast(t('required'));return}
+  settingUp=true;
+  try{
+    let u;
+    try{u=await FSX.signUp(emailFor(key,0),pw)}
+    catch(e){if(e&&e.code==='auth/email-already-in-use')u=await FSX.signInEmail(emailFor(key,0),pw);else throw e}
+    const sid=uid();
+    await FSX.db.collection('users').doc(u.uid).set({staffId:sid,role:'admin',active:true,login,name});
+    await FSX.db.collection('staff').doc(sid).set({name,login,role:'admin',active:true,mustChange:false,uid:u.uid,v:0,created:Date.now()});
+    await FSX.db.collection('logins').doc(key).set({email:emailFor(key,0),staffId:sid});
+    await FSX.db.collection('config').doc('init').set({done:true,ts:Date.now()});
+    needSetup=false;settingUp=false;
+    await onAuthChanged(u);
+  }catch(e){
+    settingUp=false;console.warn(e);
+    toast(e&&e.code==='auth/weak-password'?t('passShort'):t('setupFail'));
+    try{await FSX.signOut()}catch(_){}
+  }
+};
+FORM.pw=async fd=>{
+  const cur=String(fd.get('cur')),n1=String(fd.get('n1')),n2=String(fd.get('n2'));
+  if(n1.length<8){toast(t('passShort'));return}
+  if(n1!==n2){toast(t('passMismatch'));return}
+  try{await FSX.changePassword(cur,n1)}
+  catch(e){const c=e&&e.code;toast(c==='auth/wrong-password'||c==='auth/invalid-credential'?t('wrongCur'):t('dlFail'));return}
+  const r=await W('update','staff',meId,{mustChange:false});
+  if(r!==null){toast(t('passChanged'));if(R.stack.length)goBack();else render()}
+};
+ACT.forgot=()=>{
+  openModal(t('forgot'),`<form id="mf" data-f="forgot">${fld(t('loginId'),`<input type="text" name="login" required autocapitalize="off">`)}</form>`,`<button class="btn" type="submit" form="mf">${esc(t('send'))}</button>`);
+};
+FORM.forgot=async fd=>{
+  const login=String(fd.get('login')).trim();const id=loginKey(login)||uid();
+  const r=await W('set','resets',id,{login,ts:Date.now(),done:false});
+  if(r!==null){closeModal();toast(t('forgotSent'))}
+};
+
+/* ---- admin: staff ---- */
+let resetReqId=null;
+const activeAdmins=(exceptId)=>vals(S.staff).filter(s=>s.role==='admin'&&s.active!==false&&s.id!==exceptId).length;
+ACT.staffForm=d=>{
+  const s=d.id?S.staff[d.id]:{role:'teacher',active:true};const pw=d.id?'':genPassword();
+  const pwBlock=d.id===meId?'':`<label class="f"><span>${esc(d.id?t('setPassword'):t('tempPass'))}</span><input type="text" name="pw" id="pwf" value="${esc(d.pass||pw)}" ${d.id?'':'required'} minlength="8" autocomplete="off" autocapitalize="off"></label><button type="button" class="btn sec sm2" data-a="genPw" style="margin-bottom:12px">${esc(t('genPass'))}</button><div class="xs mut" style="margin-bottom:12px">${esc(t('mustChange'))}</div>`;
+  openModal(d.id?t('editStaff'):t('newStaff'),`<form id="mf" data-f="staff"><input type="hidden" name="id" value="${esc(d.id||'')}">${fld(t('name'),`<input type="text" name="name" required value="${esc(s.name||'')}">`)}${fld(t('login2'),`<input type="text" name="login" required autocapitalize="off" pattern="[A-Za-z0-9_\\-]+" title="${esc(t('loginHint'))}" value="${esc(s.login||'')}" ${d.id?'readonly':''}>`)}${fld(t('role'),`<select name="role">${opts(['teacher','head','admin'].map(r=>[r,roleLabel(r)]),s.role)}</select>`)}${fld(t('phone'),`<input type="tel" name="phone" value="${esc(s.phone||'')}">`)}${pwBlock}
+  <label class="row" style="margin-bottom:6px"><input type="checkbox" name="active" ${s.active!==false?'checked':''} style="width:22px;height:22px"><b>${esc(t('active'))}</b></label></form>`,
+  `${d.id&&d.id!==meId?`<button class="btn ghost" data-a="staffDel" data-id="${esc(d.id)}">${ic('trash')}</button>`:''}<button class="btn" type="submit" form="mf">${esc(t('save'))}</button>`);
+};
+ACT.genPw=()=>{const f=$('#pwf');if(f)f.value=genPassword()};
+async function newAuthAccount(key,startV,pw){
+  for(let v=startV;v<startV+8;v++){
+    const email=emailFor(key,v);
+    try{const u=await FSX.createAccount(email,pw);return{uid:u,email,v}}
+    catch(e){if(e&&e.code==='auth/email-already-in-use')continue;throw e}
+  }
+  throw {code:'too-many'};
+}
+const authErr=e=>{const c=e&&e.code;return c==='auth/network-request-failed'?t('offline'):c==='auth/weak-password'?t('passShort'):t('dlFail')};
+FORM.staff=async fd=>{
+  const isNew=!fd.get('id');const sid=fd.get('id')||uid();
+  const login=String(fd.get('login')).trim();const name=String(fd.get('name')).trim();
+  if(!login||!name){toast(t('required'));return}
+  const key=loginKey(login);
+  if(vals(S.staff).some(s=>s.id!==sid&&loginKey(s.login)===key)){toast(t('loginTaken'));return}
+  const role=fd.get('role');const active=fd.get('active')==='on';
+  const old=clone(S.staff[sid]||{});
+  if(old.role==='admin'&&(role!=='admin'||!active)&&activeAdmins(sid)===0){toast(t('lastAdmin'));return}
+  const pw=String(fd.get('pw')||'');const phone=String(fd.get('phone')||'').trim();
+  let shown=null;
+  if(isNew){
+    if(pw.length<8){toast(t('passShort'));return}
+    let acc;try{acc=await newAuthAccount(key,0,pw)}catch(e){toast(authErr(e));return}
+    if(null===await W('set','users',acc.uid,{staffId:sid,role,active,login,name}))return;
+    if(null===await W('set','staff',sid,{name,login,role,active,phone,mustChange:true,uid:acc.uid,v:acc.v,created:Date.now()}))return;
+    if(null===await W('set','logins',key,{email:acc.email,staffId:sid}))return;
+    shown=pw;
+  }else{
+    let uidNew=old.uid,vNew=old.v||0;
+    if(pw){
+      if(pw.length<8){toast(t('passShort'));return}
+      let acc;try{acc=await newAuthAccount(key,vNew+1,pw)}catch(e){toast(authErr(e));return}
+      if(null===await W('set','users',acc.uid,{staffId:sid,role,active,login:old.login||login,name}))return;
+      if(old.uid)await W('delete','users',old.uid);
+      await W('set','logins',key,{email:acc.email,staffId:sid});
+      uidNew=acc.uid;vNew=acc.v;shown=pw;
+    }else if(old.uid){
+      await W('update','users',old.uid,{role,active,name});
+    }
+    const upd={name,role,active,phone,uid:uidNew,v:vNew};if(pw)upd.mustChange=true;
+    if(null===await W('update','staff',sid,upd))return;
+  }
+  if(resetReqId){await W('update','resets',resetReqId,{done:true});resetReqId=null}
+  closeModal();
+  if(shown)openModal(t('passCopy'),`<div class="card"><div class="sm mut">${esc(t('loginId'))}</div><div class="b" style="font-size:20px">${esc(login)}</div><div class="sm mut" style="margin-top:10px">${esc(t('tempPass'))}</div><div class="b" style="font-size:22px;letter-spacing:1px;user-select:all">${esc(shown)}</div></div><div class="banner warn">${esc(t('passNote'))}</div>`,`<button class="btn" data-a="closeModal">${esc(t('ok'))}</button>`);
+  else toast(t('saved'));
+};
+ACT.staffDel=async d=>{
+  const s=S.staff[d.id];if(!s)return;
+  if(s.role==='admin'&&activeAdmins(d.id)===0){toast(t('lastAdmin'));return}
+  if(!await confirmBox(t('confirmDel'),t('del')))return;
+  await W('delete','logins',loginKey(s.login));
+  if(s.uid)await W('delete','users',s.uid);
+  await W('delete','staff',d.id);closeModal();
+};
+ACT.resetFor=d=>{
+  const r=S.resets[d.id];const s=vals(S.staff).find(x=>loginKey(x.login)===loginKey(r.login));
+  if(!s){toast(t('badLogin'));return}
+  resetReqId=d.id;modalOnClose=()=>{resetReqId=null};
+  ACT.staffForm({id:s.id,pass:genPassword()});
+};
+ACT.resetDone=async d=>{await W('update','resets',d.id,{done:true})};
+ACT.seedSample=async()=>{
+  const G=[['smp_g1','Гурӯҳи 1','Забони англисӣ'],['smp_g2','Гурӯҳи 2','Математика'],['smp_g3','Гурӯҳи 3','Забони русӣ']];
+  for(const g of G)await W('set','groups',g[0],{name:g[1],subject:g[2],teacherId:'',created:Date.now(),sample:true});
+  const N={smp_g1:['Алишер Каримов','Дилноза Ашурова','Баҳром Неъматов','Зарина Саидова','Умар Холов','Мадина Ҳакимова'],smp_g2:['Сарвар Расулов','Нигина Одинаева','Фируз Ҷалилов','Сабрина Мирзоева','Эмомалӣ Шарипов'],smp_g3:['Ситора Ғафурова','Парвиз Қурбонов','Ҳаниф Юсуфов','Лайло Азизова','Исмоил Бобоев','Фарангис Раҳмонова']};
+  let n=1;
+  for(const g of Object.keys(N))for(const nm of N[g]){await W('set','students','smp_s'+n,{name:nm,code:'DEMO-'+String(n).padStart(3,'0'),groupId:g,parentPhone:'',progress:40+(n*7)%55,grade:String(3+(n%3)),notes:[],sample:true});n++}
+  await W('set','announcements','smp_a1',{title:'Хуш омадед!',body:'Ин эълони намунавӣ аст.',target:'all',level:'normal',ts:Date.now(),by:meId,byName:me().name,sample:true});
+  toast(t('sampleAdded'));
+};
+ACT.delSample=async()=>{
+  if(!await confirmBox(t('confirmDel'),t('del')))return;
+  for(const col of ['groups','students','announcements'])for(const id of Object.keys(S[col]))if(id.startsWith('smp_'))await W('delete',col,id);
+  toast(t('sampleDeleted'));
+};
+
+/* ---- admin: school settings, logo ---- */
+function resizeImg(file,max){
+  return new Promise((res,rej)=>{
+    const fr=new FileReader();
+    fr.onerror=()=>rej();
+    fr.onload=()=>{const im=new Image();im.onerror=()=>rej();im.onload=()=>{
+      const k=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/png'));
+    };im.src=fr.result};
+    fr.readAsDataURL(file);
+  });
+}
+FORM.school=async fd=>{
+  const s=clone(settings());
+  s.schoolName=String(fd.get('schoolName')||'').trim()||'Future School';s.workStart=fd.get('workStart')||'08:00';s.grace=Math.max(0,+fd.get('grace')||0);
+  const f=$('#logoFile');
+  if(f&&f.files&&f.files[0]){try{s.logo=await resizeImg(f.files[0],256)}catch(e){toast(t('imgBad'));return}}
+  const r=await W('set','settings','main',s);
+  if(r!==null)toast(t('saved'));
+};
+ACT.logoDel=async()=>{const s=clone(settings());delete s.logo;await W('set','settings','main',s)};
+
+/* ---- exports ---- */
+async function saveFile(name,data){
+  try{const ok=await FSX.saveFile(name,data);return ok!==false}catch(e){toast(t('dlFail'));return false}
+}
+ACT.rXls=async()=>{
+  const r=buildReport();const nm='report-'+today();
+  if(window.XLSX){
+    const ws=XLSX.utils.aoa_to_sheet([r.head].concat(r.rows));const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Report');
+    const out=XLSX.write(wb,{type:'array',bookType:'xlsx'});
+    await saveFile(nm+'.xlsx',new Uint8Array(out));
+  }else{
+    const q=c=>'"'+String(c).replace(/"/g,'""')+'"';
+    await saveFile(nm+'.csv','\ufeff'+[r.head].concat(r.rows).map(row=>row.map(q).join(',')).join('\n'));
+  }
+};
+ACT.examXls=async d=>{
+  const e=S.exams[d.id];if(!e)return;const mx=maxOf(e);
+  const rows=groupStudents(e.groupId).map(s=>({s,r:e.results&&e.results[s.id]}));
+  const taken=rows.filter(x=>x.r).sort((a,b)=>b.r.score-a.r.score);const none=rows.filter(x=>!x.r);
+  const zl={g:t('zShortG'),w:t('zShortW'),r:t('zShortR')};const st=examStats(e),z=zoneCounts(e);
+  const aoa=[[e.title],[t('group')+': '+gname(e.groupId),t('date')+': '+fmtDate(e.date),t('maxPoints')+': '+mx],[],['№',t('student'),t('code'),t('score'),t('percent'),t('status')]];
+  taken.forEach((x,i)=>aoa.push([i+1,x.s.name,x.s.code||'',x.r.score,x.r.pct,zl[zoneOf(x.r.pct)]]));
+  none.forEach(x=>aoa.push(['',x.s.name,x.s.code||'','','',t('notTaken')]));
+  aoa.push([],[t('participants'),st.n+'/'+rows.length],[t('avg'),st.avg+'%'],[zl.g,z.g],[zl.w,z.w],[zl.r,z.r]);
+  const nm='exam-results-'+e.date;
+  if(window.XLSX){
+    const ws=XLSX.utils.aoa_to_sheet(aoa);ws['!cols']=[{wch:5},{wch:30},{wch:10},{wch:8},{wch:9},{wch:12}];
+    const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Results');
+    await saveFile(nm+'.xlsx',new Uint8Array(XLSX.write(wb,{type:'array',bookType:'xlsx'})));
+  }else{
+    const q=c=>'"'+String(c).replace(/"/g,'""')+'"';
+    await saveFile(nm+'.csv','\ufeff'+aoa.map(r=>r.map(q).join(',')).join('\n'));
+  }
+};
+/* ---- exam result as picture (green >=90, white 70-89, red <70) ---- */
+let lastImg=null;
+const fmtNum=n=>String(Math.round(n*100)/100);
+function examCanvas(e){
+  const mx=maxOf(e);
+  const rows=groupStudents(e.groupId).map(s=>({s,r:e.results&&e.results[s.id]}));
+  const taken=rows.filter(x=>x.r).sort((a,b)=>b.r.score-a.r.score||String(a.s.name).localeCompare(b.s.name));
+  const none=rows.filter(x=>!x.r);
+  const list=taken.map((x,i)=>({n:i+1,name:x.s.name,val:fmtNum(x.r.score),c:zoneOf(x.r.pct)})).concat(none.map((x,i)=>({n:taken.length+i+1,name:x.s.name,val:'НБ',c:'r'})));
+  const W=420,rh=32,sc=3,cols=[44,260,116],cap=26;
+  const H=rh*(2+list.length)+cap;
+  const cv=document.createElement('canvas');cv.width=W*sc;cv.height=H*sc;
+  const x=cv.getContext('2d');x.scale(sc,sc);
+  x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  const FONT='"Times New Roman",Times,"Noto Serif",serif';
+  const fit=(txt,maxW,size)=>{let s=size;x.font='bold '+s+'px '+FONT;while(x.measureText(txt).width>maxW&&s>9){s--;x.font='bold '+s+'px '+FONT}};
+  const cell=(cx,cy,w,h,bg,txt,align)=>{
+    x.fillStyle=bg;x.fillRect(cx,cy,w,h);x.strokeStyle='#000';x.lineWidth=1;x.strokeRect(cx+.5,cy+.5,w-1,h-1);
+    x.fillStyle='#000';x.textBaseline='middle';fit(txt,w-14,16);
+    x.textAlign=align;x.fillText(txt,align==='center'?cx+w/2:cx+8,cy+h/2+1);
+  };
+  const tt=String(e.title||'').toUpperCase();const title=(/ИМТИҲОН|ИМТИХОН|ЭКЗАМЕН/.test(tt)?'НАТИҶАИ ':'НАТИҶАИ ИМТИҲОНИ РӮЗОНА ')+tt+(mx!==100?' ('+mx+' БАЛЛ)':'');
+  x.fillStyle='#FFFF00';x.fillRect(0,0,W,rh);x.strokeStyle='#000';x.strokeRect(.5,.5,W-1,rh-1);
+  x.fillStyle='#000';x.textBaseline='middle';x.textAlign='center';fit(title,W-14,16);x.fillText(title,W/2,rh/2+1);
+  let cx=0;['№','НОМУ НАСАБ','БАЛЛ'].forEach((h,i)=>{cell(cx,rh,cols[i],rh,'#FFFF00',h,'center');cx+=cols[i]});
+  const BG={g:'#00B050',w:'#FFFFFF',r:'#FF0000'};
+  list.forEach((it,i)=>{
+    const y=rh*(2+i);cx=0;
+    cell(cx,y,cols[0],rh,BG[it.c],String(it.n),'center');cx+=cols[0];
+    cell(cx,y,cols[1],rh,BG[it.c],it.name,'left');cx+=cols[1];
+    cell(cx,y,cols[2],rh,BG[it.c],it.val,'center');
+  });
+  x.fillStyle='#555';x.font='12px system-ui,sans-serif';x.textAlign='left';x.textBaseline='middle';
+  x.fillText(gname(e.groupId)+' · '+fmtDate(e.date),6,H-cap/2);
+  return cv;
+}
+ACT.examImg=async d=>{
+  const e=S.exams[d.id];if(!e)return;
+  const cv=examCanvas(e);lastImg={cv,name:'exam-results-'+e.date+'.png'};
+  const canShare=!FSX.native&&!!(navigator.canShare&&navigator.share);
+  openModal(e.title,`<img alt="" src="${cv.toDataURL('image/png')}" style="width:100%;border-radius:8px;border:1px solid var(--line);background:#fff"><div class="sm mut" style="margin-top:10px">${esc(t('imgHint'))}</div>`,
+   `<button class="btn" data-a="imgSave">${ic('download')}${esc(t('saveImg'))}</button>${canShare?`<button class="btn sec" data-a="imgShare">${esc(t('shareImg'))}</button>`:''}`);
+};
+const imgBlob=()=>new Promise(res=>lastImg.cv.toBlob(b=>res(b),'image/png'));
+ACT.imgSave=async()=>{if(!lastImg)return;await saveFile(lastImg.name,await imgBlob())};
+ACT.imgShare=async()=>{
+  if(!lastImg)return;
+  try{const f=new File([await imgBlob()],lastImg.name,{type:'image/png'});if(navigator.canShare({files:[f]}))await navigator.share({files:[f]});else await ACT.imgSave()}catch(e){if(!e||e.name!=='AbortError')await ACT.imgSave()}
+};
+ACT.tprofXls=async()=>{
+  const f=R.filter;const tch=teacherOpts();const tid=f.pt&&S.staff[f.pt]?f.pt:tch[0][0];const ym=f.pm||today().slice(0,7);const P=profData(tid,ym,!!f.pu);
+  const lab=x=>x.st==='held'?t('heldN'):x.st==='missed'?t('missedN'):x.st==='unmarked'?t('unmarkedN'):'…';
+  const aoa=[[t('tProf')+': '+tname(tid)+' · '+ym],[],
+   [t('daysTaught'),P.days.filter(d=>d.dm>0).length],[t('lessonsHeld'),P.held],[t('teachHours'),fmtHM(P.mins)],[t('siteHours'),fmtHM(P.site.mins)],[t('examsHeld'),P.examCount],[t('lateCount'),P.site.lates],[],
+   [t('groups')],[t('group'),t('lessonsHeld'),t('teachHours'),t('examsMonth'),t('groupMonthScore')]];
+  P.groups.forEach(g=>aoa.push([g.name,g.lessons,fmtHM(g.mins),g.exams,g.avg==null?'—':g.avg+'%']));
+  aoa.push([],[t('dayList')],[t('date'),'',t('start'),t('end'),t('group'),t('status'),t('teachHours'),t('arrived'),t('left')]);
+  P.days.forEach(d=>{
+    if(!d.items.length)aoa.push([fmtDate(d.date),dayName(dowOf(parseYmd(d.date))),'','','','','',d.rec?d.rec.in:'',d.rec&&d.rec.out?d.rec.out:'']);
+    d.items.forEach((it,i)=>aoa.push([fmtDate(d.date),dayName(dowOf(parseYmd(d.date))),it.l.start,it.l.end,gname(it.l.groupId),lab(it),it.count?fmtHM(it.dur):'',i===0&&d.rec?d.rec.in:'',i===0&&d.rec&&d.rec.out?d.rec.out:'']));
+    aoa.push(['','','','','',t('total2'),fmtHM(d.dm)]);
+  });
+  aoa.push([],[t('studentMonthAvg')],[t('group'),t('student'),t('examsMonth'),t('avg')]);
+  P.groups.forEach(g=>g.studs.forEach(x=>aoa.push([g.name,x.s.name,x.n,x.avg==null?'—':x.avg+'%'])));
+  const nm='teacher-'+ym;
+  if(window.XLSX){
+    const ws=XLSX.utils.aoa_to_sheet(aoa);ws['!cols']=[{wch:14},{wch:14},{wch:10},{wch:10},{wch:22},{wch:14},{wch:12},{wch:10},{wch:10}];
+    const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Teacher');
+    await saveFile(nm+'.xlsx',new Uint8Array(XLSX.write(wb,{type:'array',bookType:'xlsx'})));
+  }else{
+    const q=c=>'"'+String(c).replace(/"/g,'""')+'"';
+    await saveFile(nm+'.csv','\ufeff'+aoa.map(r=>r.map(q).join(',')).join('\n'));
+  }
+};
+ACT.rPdf=()=>{toast(t('pdfHint'));setTimeout(()=>{try{window.print()}catch(e){}},900)};
+ACT.doBackup=async()=>{
+  const data={app:'future-school-teacher',version:VER,created:new Date().toISOString()};COLS.forEach(c=>data[c]=S[c]);
+  await saveFile('future-school-backup-'+today()+'.json',JSON.stringify(data));
+};
+ACT.doRestore=()=>{const f=$('#restoreFile');if(f)f.click()};
+document.addEventListener('change',async e=>{
+  if(e.target.id!=='restoreFile')return;
+  const file=e.target.files[0];if(!file)return;
+  let data;try{data=JSON.parse(await file.text());if(data.app!=='future-school-teacher')throw 0}catch(err){toast(t('restoreBad'));return}
+  if(!await confirmBox(t('restoreWarn')))return;
+  let n=0;
+  for(const c of COLS){const col=data[c];if(!col||typeof col!=='object')continue;
+    for(const id of Object.keys(col)){const r=await W('set',c,id,col[id]);if(r===null){toast(t('noPerm'));return}n++}}
+  toast(t('restoreOk',{n}));
+});
+
+/* ---- local notifications (native app only) ---- */
+function hash32(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))|0}return Math.abs(h)%2147483000+1}
+async function planNotifs(){
+  if(!window.FSX||!FSX.native||!FSX.scheduleNotifs)return;
+  if(!meId||!isT()){await FSX.scheduleNotifs([]);return}
+  const items=[];const now=Date.now();
+  for(let k=0;k<7;k++){
+    const d=addDays(today(),k);const dw=dowOf(parseYmd(d));
+    teacherLessons(meId).filter(l=>+l.day===dw).forEach(l=>{
+      const hm=String(l.start).split(':').map(Number);const dt=parseYmd(d);dt.setHours(hm[0],hm[1]-15,0,0);
+      if(dt.getTime()>now)items.push({id:hash32(l.id+d),title:t('app'),body:t('al_lesson',{n:15,g:gname(l.groupId)+' · '+l.start}),at:dt});
+    });
+  }
+  items.sort((a,b)=>a.at-b.at);
+  await FSX.scheduleNotifs(items.slice(0,60));
+}
+/* ================= boot ================= */
+(async function boot(){
+  applyTheme();render();
+  if(window.FSX&&FSX.configured){
+    window.XLSX=FSX.XLSX;DB=FSX.db;
+    if(FSX.onBack)FSX.onBack(()=>{
+      if(modalOpen()){closeModal();return}
+      if(R.stack.length){goBack();return}
+      if(R.v!=='home'){goRoot('home');return}
+      if(FSX.exitApp)FSX.exitApp();
+    });
+    try{const init=await FSX.getDoc('config','init');needSetup=!init}catch(e){needSetup=false}
+    FSX.onAuth(onAuthChanged);
+  }else{authReady=true}
+  setInterval(tick,30000);
+  render();
+})();
+</script>
+</body>
+</html>

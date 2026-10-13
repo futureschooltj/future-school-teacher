@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function userPath() { return /databases/$(db)/documents/users/$(request.auth.uid); }
+    function hasUser() { return signedIn() && exists(userPath()); }
+    function uDoc() { return get(userPath()).data; }
+    function active() { return hasUser() && uDoc().active == true; }
+    function isAdmin() { return active() && uDoc().role == 'admin'; }
+    function isHead() { return active() && uDoc().role == 'head'; }
+    function isTeacher() { return active() && uDoc().role == 'teacher'; }
+    function sid() { return uDoc().staffId; }
+    function onlyKeys(keys) { return request.resource.data.diff(resource.data).affectedKeys().hasOnly(keys); }
+    function notInitialised() { return !exists(/databases/$(db)/documents/config/init); }
+
+    // Ҳолати аввалин: танҳо як маротиба, то замоне ки config/init сохта нашудааст
+    match /config/{id} {
+      allow get: if true;
+      allow create: if id == 'init' && signedIn() && notInitialised();
+      allow update, delete: if false;
+    }
+
+    match /users/{uid} {
+      allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isAdmin()
+        || (signedIn() && request.auth.uid == uid && request.resource.data.role == 'admin' && notInitialised());
+      allow update, delete: if isAdmin();
+    }
+
+    // Харитаи ID -> почтаи дохилӣ (барои воридшавӣ, пеш аз аутентификатсия)
+    match /logins/{key} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /staff/{id} {
+      allow read: if active();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin()
+        || (active() && resource.data.uid == request.auth.uid && onlyKeys(['mustChange']));
+    }
+
+    match /groups/{id} {
+      allow read: if active();
+      allow write: if isAdmin();
+    }
+
+    match /lessons/{id} {
+      allow read: if active();
+      allow write: if isAdmin();
+    }
+
+    match /students/{id} {
+      allow read: if active();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || (isTeacher() && onlyKeys(['notes', 'progress', 'grade']));
+    }
+
+    match /sattend/{id} {
+      allow read: if active();
+      allow create, update: if isAdmin() || isTeacher();
+      allow delete: if isAdmin();
+    }
+
+    // Ҳозиршавии омӯзгорон: омӯзгор танҳо ҳуҷҷати худро месозад ва «баромадан»-ро як маротиба менависад
+    match /tattend/{id} {
+      allow get, list: if active() && (isAdmin() || isHead() || resource.data.teacherId == sid());
+      allow create: if isAdmin()
+        || (isTeacher() && request.resource.data.teacherId == sid()
+            && id == sid() + '_' + request.resource.data.date);
+      allow update: if isAdmin()
+        || (isTeacher() && resource.data.teacherId == sid() && resource.data.out == null && onlyKeys(['out']));
+      allow delete: if isAdmin();
+    }
+
+    match /announcements/{id} {
+      allow read: if active();
+      allow create: if isAdmin() || isHead();
+      allow delete: if isAdmin() || (isHead() && resource.data.by == sid());
+      allow update: if false;
+    }
+
+    match /notices/{id} {
+      allow read: if active() && (isAdmin() || isHead() || resource.data.to == 'all' || resource.data.to == sid());
+      allow create, delete: if isAdmin();
+    }
+
+    match /exams/{id} {
+      allow read: if active();
+      allow create, update: if isAdmin() || isTeacher();
+      allow delete: if isAdmin() || (isTeacher() && resource.data.by == sid());
+    }
+
+    match /tasks/{id} {
+      allow read: if active() && (isAdmin() || isHead() || resource.data.assignee == sid());
+      allow create, delete: if isAdmin() || isHead();
+      allow update: if isAdmin() || isHead()
+        || (isTeacher() && resource.data.assignee == sid() && onlyKeys(['status']));
+    }
+
+    match /materials/{id} {
+      allow read: if active();
+      allow create: if active();
+      allow delete: if isAdmin() || resource.data.by == sid();
+    }
+
+    match /messages/{id} {
+      allow read: if active() && (isAdmin() || isHead() || resource.data.from == sid());
+      allow create: if active() && request.resource.data.from == sid();
+      allow update: if isAdmin() || isHead();
+      allow delete: if isAdmin();
+    }
+
+    match /reports/{id} {
+      allow read: if active() && (isAdmin() || isHead() || resource.data.teacherId == sid());
+      allow create, update: if isTeacher() && request.resource.data.teacherId == sid()
+        && id == sid() + '_' + request.resource.data.date;
+      allow delete: if isAdmin();
+    }
+
+    // Дархости барқарорсозии парол (бе вуруд иҷозат дода мешавад, аммо танҳо ин майдонҳо)
+    match /resets/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['login', 'ts', 'done']);
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /settings/{id} {
+      allow read: if active();
+      allow write: if isAdmin();
+    }
+  }
+}
